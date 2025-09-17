@@ -1,0 +1,133 @@
+<div class="container-fluid mt-4">
+  <!-- Header con botón de crear -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <h2 class="mb-0">Gestión de Usuarios</h2>
+      <p class="text-muted">Administra de Usuarios</p>
+    </div>
+    <div class="col-md-6 text-end">
+      <a routerLink="/usuarios/create" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Nuevo Usuario
+      </a>
+    </div>
+  </div>
+
+  <!-- Barra de búsqueda -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar Usuarios por nombre, dni o correo..."
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="onSearch()"
+        />
+        <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">
+          <i class="fas fa-search"></i> Buscar
+        </button>
+        <button class="btn btn-outline-secondary" type="button" (click)="onClearSearch()">
+          <i class="fas fa-times"></i> Limpiar
+        </button>
+      </div>
+    </div>
+    <div class="col-md-6 text-end">
+      <span class="badge bg-info">
+        {{ filteredUsuarios.length }} Usuario(s) encontrado(s)
+      </span>
+    </div>
+  </div>
+
+  <!--Tabla de Usuarios-->
+  <div class="card">
+    <div class="card-body p-0">
+      <div class="table-responsive p-0">
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Lugar de Nacimiento</th>
+              <th>DNI</th>
+              <th>Correo</th>
+              <th>Dirección</th>
+              <th>CP</th>
+              <th>Ciudad</th>
+              <th>Móvil</th>
+              <th>Fecha</th>
+              <th>Firma</th>
+              <th>Bloque1</th>
+              <th>Bloque2</th>
+              <th>Creado</th>
+              <th>Actualizado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (filteredUsuarios.length === 0) {
+              <tr>
+                <td colspan="9" class="text-center py-4">
+                  <div class="text-muted">
+                    <i class="fas fa-box-open fa-3x mb-3"></i>
+                    <p>No se encontraron Usuarios</p>
+                    <a routerLink="/usuarios/create" class="btn btn-primary btn-sm">
+                      Crear primer Usuario
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            } @else {
+              @for (Usuario of filteredUsuarios; track Usuario.id) {
+                <tr>
+                  <td>
+                    <span class="badge bg-secondary">{{ Usuario.id }}</span>
+                  </td>
+                  <td>
+                    <strong>{{ Usuario.nombre }}</strong>
+                  </td>
+                  <td>{{ Usuario.lugarNacimiento }}</td>
+                  <td>{{ Usuario.dni }}</td>
+                  <td>{{ Usuario.correo }}</td>
+                  <td>{{ Usuario.direccion }}</td>
+                  <td>{{ Usuario.cp }}</td>
+                  <td>{{ Usuario.ciudad }}</td>
+                  <td>{{ Usuario.movil }}</td>
+                  <td>{{ formatDate(Usuario.fecha) }}</td>
+                  <td>{{ Usuario.firma }}</td>
+                  <td>{{ Usuario.bloque1 }}</td>
+                  <td>{{ Usuario.bloque2 }}</td>
+                  <td>
+                    <small class="text-muted">{{ formatDate(Usuario.createdDate) }}</small>
+                  </td>
+                  <td>
+                    <small class="text-muted">{{ formatDate(Usuario.updatedDate) }}</small>
+                  </td>
+                  <td>
+                    <div class="btn-group btn-group-sm" role="group">
+                      <a [routerLink]="['/usuarios', Usuario.id]" 
+                         class="btn btn-outline-info btn-sm" 
+                         title="Ver detalles">
+                        <i class="fas fa-eye"></i>
+                      </a>
+                      <a [routerLink]="['/usuarios/edit', Usuario.id]" 
+                         class="btn btn-outline-warning btn-sm" 
+                         title="Editar">
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <button type="button" 
+                              class="btn btn-outline-danger btn-sm" 
+                              (click)="onDeleteProduct(Usuario.id)"
+                              title="Eliminar">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
