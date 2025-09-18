@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Usuario } from '../../../interfaces/usuario.interface';
 import { UsuarioService } from '../../../services/usuario.service';
-import { Usuario } from '../../../interfaces/usuarui.interface';
 
 @Component({
   selector: 'app-list',

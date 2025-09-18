@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ProcutsService } from '../../../services/procuts.service';
-import { Usuario } from '../../../interfaces/usuarui.interface'; 
+import { Usuario } from '../../../interfaces/usuario.interface';
 import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
