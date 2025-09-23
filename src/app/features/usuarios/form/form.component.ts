@@ -10,10 +10,13 @@ import { UsuarioService } from '../../../services/usuario.service';
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
+  
 })
 export class FormComponent implements OnInit {
   usuarioForm: FormGroup;
   isEditMode = false;
+  loading = false;
+  error: string | null = null;
   usuarioId: number | null = null;
   categories = ['Electrónicos', 'Muebles', 'Ropa', 'Hogar', 'Deportes', 'Libros', 'Otros'];
 
@@ -31,7 +34,7 @@ export class FormComponent implements OnInit {
     if (id) {
       this.isEditMode = true;
       this.usuarioId = +id;
-      this.loadProduct();
+      this.loadUsuario();
     }
   }
 
@@ -52,7 +55,40 @@ export class FormComponent implements OnInit {
     });
   }
 
-  private loadProduct(): void {
+  private loadUsuario(): void {
+    if (this.usuarioId) {
+      this.loading = true;
+      this.error = null;
+      
+      this.usuarioService.getUsuarioById(this.usuarioId).subscribe({
+        next: (usuario) => {
+          this.usuarioForm.patchValue({
+            id: usuario.id,
+            nombre: usuario.nombre,
+            lugarNacimiento: usuario.lugarNacimiento,
+            dni: usuario.dni,
+            correo: usuario.correo,
+            direccion: usuario.direccion,
+            cp: usuario.cp,
+            ciudad: usuario.ciudad,
+            movil: usuario.movil,
+            fecha: usuario.fecha,
+            firma: usuario.firma,
+            bloque1: usuario.bloque1,
+            bloque2: usuario.bloque2,
+          });
+          this.loading = false;
+        },
+        error: (error) => {
+          this.error = error.message;
+          this.loading = false;
+          console.error('Error cargando usuarioo:', error);
+        }
+      });
+    }
+  }
+
+  /*private loadUsuario(): void {
     if (this.usuarioId) {
       const Usuario = this.usuarioService.getUsuarioById(this.usuarioId);
       if (Usuario) {
@@ -73,26 +109,41 @@ export class FormComponent implements OnInit {
         });
       }
     }
-  }
+  }*/
+
 
   onSubmit(): void {
-    if (this.usuarioForm.valid) {
+    if (this.usuarioForm.valid && !this.loading) {
+      this.loading = true;
+      this.error = null;
       const formValue = this.usuarioForm.value;
       
       if (this.isEditMode && this.usuarioId) {
-        // Actualizar producto existente
-        const updatedProduct = this.usuarioService.updateUsuario(this.usuarioId, formValue);
-        if (updatedProduct) {
-          alert('Usuario actualizado exitosamente');
-          this.router.navigate(['/usuarios']);
-        } else {
-          alert('Error al actualizar el Usuario');
-        }
+        // Actualizar usuario existente
+        this.usuarioService.updateUsuario(this.usuarioId, formValue).subscribe({
+          next: () => {
+            alert('Usuario actualizado exitosamente');
+            this.router.navigate(['/usuarios']);
+          },
+          error: (error) => {
+            this.error = error.message;
+            this.loading = false;
+            alert(`Error al actualizar el usuario: ${error.message}`);
+          }
+        });
       } else {
-        // Crear nuevo producto
-        const newProduct = this.usuarioService.createUsuario(formValue);
-        alert('Usuario creado exitosamente');
-        this.router.navigate(['/usuarios']);
+        // Crear nuevo usuarioo
+        this.usuarioService.createUsuario(formValue).subscribe({
+          next: () => {
+            alert('Usuario creado exitosamente');
+            this.router.navigate(['/usuarios']);
+          },
+          error: (error) => {
+            this.error = error.message;
+            this.loading = false;
+            alert(`Error al crear el usuarioo: ${error.message}`);
+          }
+        });
       }
     } else {
       this.markFormGroupTouched();
@@ -148,5 +199,9 @@ export class FormComponent implements OnInit {
   isFieldInvalid(fieldName: string): boolean {
     const field = this.usuarioForm.get(fieldName);
     return !!(field?.invalid && field?.touched);
+  }
+
+  onClearError(): void {
+    this.error = null;
   }
 }
