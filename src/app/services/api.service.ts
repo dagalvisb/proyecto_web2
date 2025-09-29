@@ -18,7 +18,7 @@ export class ApiService {
 
   // GET /api/Usuarios
   getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this.baseUrl}/Usuarios/listaUsuario`, this.httpOptions)
+    return this.http.get<Usuario[]>(`${this.baseUrl}/Usuarios/ListaUsuario`, this.httpOptions)
       .pipe(
         map(Usuarios => Usuarios.map(Usuario => ({
           ...Usuario,
@@ -51,7 +51,7 @@ export class ApiService {
       updatedDate: new Date().toISOString()
     };
 
-    return this.http.post<Usuario>(`${this.baseUrl}/Usuarios/crearUsuario`, UsuarioToSend, this.httpOptions)
+    return this.http.post<Usuario>(`${this.baseUrl}/Usuarios/CrearUsuario`, UsuarioToSend, this.httpOptions)
       .pipe(
         map(Usuario => ({
           ...Usuario,
@@ -70,7 +70,7 @@ export class ApiService {
       updatedDate: new Date().toISOString()
     };
 
-    return this.http.put<Usuario>(`${this.baseUrl}/Usuarios/editarUsuario?id=${id}`, UsuarioToSend, this.httpOptions)
+    return this.http.put<Usuario>(`${this.baseUrl}/Usuarios/EditarUsuario?id=${id}`, UsuarioToSend, this.httpOptions)
       .pipe(
         map(Usuario => ({
           ...Usuario,
@@ -83,7 +83,7 @@ export class ApiService {
 
   // DELETE /api/Usuarios/{id}
   deleteUsuario(id: number): Observable<boolean> {
-    return this.http.delete(`${this.baseUrl}/Usuarios/eliminarUsuarios?id=${id}`, this.httpOptions)
+    return this.http.delete(`${this.baseUrl}/Usuarios/EliminarUsuario?id=${id}`, this.httpOptions)
       .pipe(
         map(() => true),
         catchError(this.handleError)

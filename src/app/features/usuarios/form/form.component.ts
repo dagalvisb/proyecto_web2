@@ -191,7 +191,7 @@ export class FormComponent implements OnInit {
       fecha: 'Fecha',
       firma: 'Firma',
       bloque1: 'Bloque 1',
-      bloque2: 'Bloque 2'
+      bloque2: 'Bloque 2',
     };
     return labels[fieldName] || fieldName;
   }
