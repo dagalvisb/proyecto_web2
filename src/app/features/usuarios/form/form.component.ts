@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UsuarioService } from '../../../services/usuario.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, HttpClientModule],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
   
@@ -48,7 +49,7 @@ export class FormComponent implements OnInit {
       cp: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       ciudad: ['', [Validators.required, Validators.minLength(2)]],
       movil: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
-      fecha: ['', Validators.required],
+      Fecha: ['', Validators.required],
       firma: ['', Validators.required],
       bloque1: [''],
       bloque2: [''],
@@ -72,7 +73,7 @@ export class FormComponent implements OnInit {
             cp: usuario.cp,
             ciudad: usuario.ciudad,
             movil: usuario.movil,
-            fecha: usuario.fecha,
+            Fecha: usuario.Fecha,
             firma: usuario.firma,
             bloque1: usuario.bloque1,
             bloque2: usuario.bloque2,
@@ -188,7 +189,7 @@ export class FormComponent implements OnInit {
       cp: 'Código Postal',
       ciudad: 'Ciudad',
       movil: 'Móvil',
-      fecha: 'Fecha',
+      Fecha: 'Fecha',
       firma: 'Firma',
       bloque1: 'Bloque 1',
       bloque2: 'Bloque 2',

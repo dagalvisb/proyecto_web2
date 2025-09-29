@@ -114,16 +114,20 @@ export class ListComponent implements OnInit, OnDestroy {
   return fecha || "Sin fecha";
 }
 
-  formatDate2(date: Date): string {
-    return new Intl.DateTimeFormat('es-ES', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit'
-    }).format(new Date(date));
-  }
+  formatDate2(date: string | Date | null | undefined): string {
+  if (!date) return 'Sin fecha'; // null o undefined
 
+  const parsedDate = new Date(date);
+  if (isNaN(parsedDate.getTime())) return 'Fecha inválida'; // string no válido
+
+  return new Intl.DateTimeFormat('es-ES', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(parsedDate);
+  }
   getStockClass(stock: number): string {
     if (stock === 0) return 'text-danger fw-bold';
     if (stock < 10) return 'text-warning fw-bold';

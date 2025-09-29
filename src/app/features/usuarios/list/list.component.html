@@ -92,10 +92,16 @@
                   <td>{{ Usuario.cp }}</td>
                   <td>{{ Usuario.ciudad }}</td>
                   <td>{{ Usuario.movil }}</td>
-                  <td>{{ formatDate2(Usuario.fecha) }}</td>
+                  <td>{{ formatDate2(Usuario.Fecha) }}</td>
                   <td>{{ Usuario.firma }}</td>
                   <td>{{ Usuario.bloque1 }}</td>
                   <td>{{ Usuario.bloque2 }}</td>
+                  <td>
+                    <small class="text-muted">{{ formatDate2(Usuario.createdDate) }}</small>
+                  </td>
+                  <td>
+                    <small class="text-muted">{{ formatDate2(Usuario.updatedDate) }}</small>
+                  </td>
                   <td>
                     <div class="btn-group btn-group-sm" role="group">
                       <a [routerLink]="['/usuarios', Usuario.id]" 

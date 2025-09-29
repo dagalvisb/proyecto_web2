@@ -8,7 +8,7 @@ export interface Usuario {
     cp: string;
     ciudad: string;
     movil: string;
-    fecha: Date;
+    Fecha: Date;
     firma: string;
     bloque1?: string;
     bloque2?: string;
