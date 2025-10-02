@@ -44,12 +44,14 @@ export class UsuarioService {
 
   // Obtener un usuarioo por ID
   getUsuarioById(id: number): Observable<Usuario> {
-    return this.apiService.getUsuarioById(id).pipe(
+     let obtenerUsuario: Observable<Usuario> = this.apiService.getUsuarioById(id).pipe(
       catchError(error => {
         this.setError(error.message);
         return throwError(() => error);
       })
     );
+    console.log("Variable de obtenerUsuario", obtenerUsuario);
+    return obtenerUsuario;
   }
 
   // Crear un nuevo usuarioo

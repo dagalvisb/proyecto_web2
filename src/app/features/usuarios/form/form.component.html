@@ -124,20 +124,6 @@
                   {{ getFieldError('movil') }}
                 </div>
               </div>
-              <!-- Fecha -->
-              <div class="col-md-6 mb-3">
-                <label for="Fecha" class="form-label">Fecha</label>
-                <input
-                  type="datetime-local"
-                  id="Fecha"
-                  class="form-control"
-                  formControlName="Fecha"
-                  [ngClass]="{ 'is-invalid': isFieldInvalid('fecha') }"
-                />
-                <div *ngIf="isFieldInvalid('fecha')" class="invalid-feedback">
-                  {{ getFieldError('fecha') }}
-                </div>
-              </div>
               <!-- Firma -->
               <div class="col-md-6 mb-3">
                 <label for="firma" class="form-label">Firma</label>

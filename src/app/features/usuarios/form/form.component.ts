@@ -49,7 +49,6 @@ export class FormComponent implements OnInit {
       cp: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       ciudad: ['', [Validators.required, Validators.minLength(2)]],
       movil: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
-      Fecha: ['', Validators.required],
       firma: ['', Validators.required],
       bloque1: [''],
       bloque2: [''],
@@ -73,7 +72,6 @@ export class FormComponent implements OnInit {
             cp: usuario.cp,
             ciudad: usuario.ciudad,
             movil: usuario.movil,
-            Fecha: usuario.Fecha,
             firma: usuario.firma,
             bloque1: usuario.bloque1,
             bloque2: usuario.bloque2,
@@ -112,8 +110,53 @@ export class FormComponent implements OnInit {
     }
   }*/
 
-
   onSubmit(): void {
+    if (this.usuarioForm.valid && !this.loading) {
+      this.loading = true;
+      this.error = null;
+
+      // 1️⃣ Copia de los valores del formulario
+      const formValue = { ...this.usuarioForm.value };
+
+      // 2️⃣ Convertimos la fecha al formato ISO completo
+      if (formValue.Fecha) {
+        formValue.Fecha = new Date(formValue.Fecha).toISOString();
+      }
+
+      if (this.isEditMode && this.usuarioId) {
+        // Actualizar usuario existente
+        this.usuarioService.updateUsuario(this.usuarioId, formValue).subscribe({
+          next: () => {
+            alert('Usuario actualizado exitosamente');
+            this.router.navigate(['/usuarios']);
+          },
+          error: (error) => {
+            this.error = error.message;
+            this.loading = false;
+            alert(`Error al actualizar el usuario: ${error.message}`);
+          }
+        });
+      } else {
+        // Crear nuevo usuario
+        this.usuarioService.createUsuario(formValue).subscribe({
+          next: () => {
+            alert('Usuario creado exitosamente');
+            this.router.navigate(['/usuarios']);
+          },
+          error: (error) => {
+            this.error = error.message;
+            this.loading = false;
+            alert(`Error al crear el usuario: ${error.message}`);
+          }
+        });
+      }
+    } else {
+      this.markFormGroupTouched();
+      alert('Por favor, complete todos los campos requeridos correctamente');
+    }
+  }
+
+  /*onSubmit(): void {
     if (this.usuarioForm.valid && !this.loading) {
       this.loading = true;
       this.error = null;
@@ -150,7 +193,7 @@ export class FormComponent implements OnInit {
       this.markFormGroupTouched();
       alert('Por favor, complete todos los campos requeridos correctamente');
     }
-  }
+  }*/
 
   private markFormGroupTouched(): void {
     Object.keys(this.usuarioForm.controls).forEach(key => {

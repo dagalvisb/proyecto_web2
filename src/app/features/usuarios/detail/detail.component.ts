@@ -108,16 +108,29 @@ export class DetailComponent implements OnInit {
   return fecha || "Sin fecha";
 }
 
-  formatDate2(date: Date): string {
+  formatDate2(date: any): string {
+  if (!date) return '';
+
+    // Si la fecha viene sin segundos ni zona horaria, le agregamos ":00Z"
+    let fixedDate = date;
+      if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(date)) {
+        fixedDate = date + ":00Z";
+      }
+
+    const parsedDate = new Date(fixedDate);
+      if (isNaN(parsedDate.getTime())) {
+        return '';
+      }
+
     return new Intl.DateTimeFormat('es-ES', {
       year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
       hour: '2-digit',
       minute: '2-digit'
-    }).format(new Date(date));
+    }).format(parsedDate);
   }
-
+  
   getStockClass(stock: number): string {
     if (stock === 0) return 'text-danger fw-bold';
     if (stock < 10) return 'text-warning fw-bold';

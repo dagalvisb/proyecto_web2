@@ -43,6 +43,22 @@ export class ApiService {
   }
 
   // POST /api/Usuarios
+  /*createUsuario(usuario: Omit<Usuario, 'id' | 'createdDate' | 'updatedDate'>): Observable<Usuario> {
+  return this.http.post<Usuario>(
+    `${this.baseUrl}/Usuarios/CrearUsuario`,
+    usuario,  // 👈 solo mandamos los datos del formulario
+    this.httpOptions
+  ).pipe(
+    map(usuario => ({
+      ...usuario,
+      createdDate: new Date(usuario.createdDate),
+      updatedDate: new Date(usuario.updatedDate)
+    })),
+    catchError(this.handleError)
+  );
+}*/
+  
+  
   createUsuario(Usuario: Omit<Usuario, 'id' | 'createdDate' | 'updatedDate'>): Observable<Usuario> {
     const UsuarioToSend = {
       ...Usuario,
@@ -51,6 +67,7 @@ export class ApiService {
       updatedDate: new Date().toISOString()
     };
 
+    console.log(UsuarioToSend);
     return this.http.post<Usuario>(`${this.baseUrl}/Usuarios/CrearUsuario`, UsuarioToSend, this.httpOptions)
       .pipe(
         map(Usuario => ({
@@ -63,18 +80,19 @@ export class ApiService {
   }
 
   // PUT /api/Usuarios/{id}
-  updateUsuario(id: number, Usuario: Partial<Omit<Usuario, 'id' | 'createdDate'>>): Observable<Usuario> {
+  updateUsuario(id: number, Usuario: Partial<Omit<Usuario, 'id' | 'updatedDate'>>): Observable<Usuario> {
     const UsuarioToSend = {
       ...Usuario,
       id: id,
       updatedDate: new Date().toISOString()
     };
 
+    console.log("Variable de Usuario", UsuarioToSend);
+
     return this.http.put<Usuario>(`${this.baseUrl}/Usuarios/EditarUsuario?id=${id}`, UsuarioToSend, this.httpOptions)
       .pipe(
         map(Usuario => ({
           ...Usuario,
-          createdDate: new Date(Usuario.createdDate),
           updatedDate: new Date(Usuario.updatedDate)
         })),
         catchError(this.handleError)
