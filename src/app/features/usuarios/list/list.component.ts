@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Usuario } from '../../../interfaces/usuarui.interface';
-
+ 
 @Component({
   selector: 'app-list',
   standalone: true,

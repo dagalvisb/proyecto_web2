@@ -1,0 +1,68 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4 rounded-3">
+                <h3 class="text-center mb-4">Formulario de Inscripción de Materias</h3>
+
+                <form [formGroup]="materiasForm" (ngSubmit)="onSubmit()">
+
+                    <!-- Código estudiante -->
+                    <div class="mb-3">
+                        <label for="codigo" class="form-label">Código Estudiante</label>
+                        <input type="text" id="codigo" class="form-control" formControlName="codigo"
+                            placeholder="Ej: 2025001">
+                        <div *ngIf="materiasForm.get('codigo')?.invalid && materiasForm.get('codigo')?.touched"
+                            class="text-danger small">
+                            El código es obligatorio (mínimo 4 caracteres).
+                        </div>
+                    </div>
+
+                    <!-- Nombre estudiante -->
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre Estudiante</label>
+                        <input type="text" id="nombre" class="form-control" formControlName="nombre"
+                            placeholder="Ej: Laura Pérez">
+                        <div *ngIf="materiasForm.get('nombre')?.invalid && materiasForm.get('nombre')?.touched"
+                            class="text-danger small">
+                            El nombre es obligatorio.
+                        </div>
+                    </div>
+
+                    <!-- Selección de materia -->
+                    <div class="mb-3">
+                        <label for="materia" class="form-label">Materia</label>
+                        <select id="materia" class="form-select" formControlName="materia">
+                            <option value="" disabled selected>Seleccione una materia</option>
+                            <option *ngFor="let mat of materiasDisponibles" [value]="mat">{{ mat }}</option>
+                        </select>
+                        <div *ngIf="materiasForm.get('materia')?.invalid && materiasForm.get('materia')?.touched"
+                            class="text-danger small">
+                            Debe seleccionar una materia.
+                        </div>
+                    </div>
+
+                    <!-- Semestre -->
+                    <div class="mb-3">
+                        <label for="semestre" class="form-label">Semestre</label>
+                        <input type="number" id="semestre" class="form-control" formControlName="semestre"
+                            placeholder="Ej: 3">
+                        <div *ngIf="materiasForm.get('semestre')?.invalid && materiasForm.get('semestre')?.touched"
+                            class="text-danger small">
+                            El semestre es obligatorio y debe ser un número válido.
+                        </div>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary"
+                            [disabled]="materiasForm.invalid">Inscribirse</button>
+                        <button type="button" class="btn btn-secondary" routerLink="/materias">Cancelar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
