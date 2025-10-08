@@ -1,0 +1,102 @@
+<div class="container-fluid mt-4">
+    <!-- Header con botón de crear -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h2 class="mb-0">Lista de Materias</h2>
+            <p class="text-muted">Muestra las Materias Disponibles</p>
+        </div>
+        <div class="col-md-6 text-end">
+            <a routerLink="/materias/inscribir" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Inscribir Materia
+            </a>
+        </div>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Buscar Materias por nombre o ID..."
+                    [(ngModel)]="searchQuery" />
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="fas fa-times"></i> Limpiar
+                </button>
+            </div>
+        </div>
+        <div class="col-md-6 text-end">
+            <span class="badge bg-info">
+                {{ filteredMaterias.length }} Materia(s) encontrada(s)
+            </span>
+        </div>
+    </div>
+
+    <!--Tabla de Usuarios-->
+    <div class="card">
+        <div class="card-body p-0">
+            <div class="table-responsive p-0">
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Código</th>
+                            <th>Semestre</th>
+                            <th>Materia</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (filteredMaterias.length === 0) {
+                        <tr>
+                            <td colspan="9" class="text-center py-4">
+                                <div class="text-muted">
+                                    <i class="fas fa-box-open fa-3x mb-3"></i>
+                                    <p>No se encontraron Materias</p>
+                                    <a routerLink="/materias/create" class="btn btn-primary btn-sm">
+                                        Crear materia
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        } @else {
+                        @for (Materia of filteredMaterias; track Materia.id) {
+                        <tr>
+                            <td>
+                                <span class="badge bg-secondary">{{ Materia.id }}</span>
+                            </td>
+                            <td>
+                                <strong>{{ Materia.name }}</strong>
+                            </td>
+                            <td>{{ Materia.details }}</td>
+                            <td>{{ Materia.codigo }}</td>
+                            <td>{{ Materia.semestre }}</td>
+                            <td>{{ Materia.materia }}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a [routerLink]="['/materias', Materia.id]" class="btn btn-outline-info btn-sm"
+                                        title="Ver detalles">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a [routerLink]="['/materias/edit', Materia.id]"
+                                        class="btn btn-outline-warning btn-sm" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-danger btn-sm"
+                                        (click)="onDeleteMateria(Materia.id)" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
