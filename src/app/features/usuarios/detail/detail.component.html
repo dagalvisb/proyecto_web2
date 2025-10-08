@@ -25,7 +25,7 @@
             <a [routerLink]="['/usuarios/edit', Usuario.id]" class="btn btn-warning btn-sm">
               <i class="fas fa-edit"></i> Editar
             </a>
-            <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteProduct()">
+            <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteUsuario()">
               <i class="fas fa-trash"></i> Eliminar
             </button>
           </div>
@@ -68,10 +68,6 @@
                   <td><span>{{ Usuario.movil }}</span></td>
                 </tr>
                 <tr>
-                  <td><strong>Fecha:</strong></td>
-                  <td><span>{{ formatDate(Usuario.fecha) }}</span></td>
-                </tr>
-                <tr>
                   <td><strong>Firma:</strong></td>
                   <td><span>{{ Usuario.firma }}</span></td>
                 </tr>
@@ -90,11 +86,11 @@
               <table class="table table-borderless">
                 <tr>
                   <td><strong>Creado:</strong></td>
-                  <td><small class="text-muted">{{ formatDate(Usuario.createdDate) }}</small></td>
+                  <td><small class="text-muted">{{ formatDate2(Usuario.createdDate) }}</small></td>
                 </tr>
                 <tr>
                   <td><strong>Actualizado:</strong></td>
-                  <td><small class="text-muted">{{ formatDate(Usuario.updatedDate) }}</small></td>
+                  <td><small class="text-muted">{{ formatDate2(Usuario.updatedDate) }}</small></td>
                 </tr>
               </table>
             </div>
@@ -112,10 +108,10 @@
         <div class="card-body">
           <div class="d-grid gap-2">
             <a [routerLink]="['/usuarios/edit', Usuario.id]" class="btn btn-warning">
-              <i class="fas fa-edit"></i> Editar Producto
+              <i class="fas fa-edit"></i> Editar Usuario
             </a>
-            <button type="button" class="btn btn-danger" (click)="onDeleteProduct()">
-              <i class="fas fa-trash"></i> Eliminar Producto
+            <button type="button" class="btn btn-danger" (click)="onDeleteUsuario()">
+              <i class="fas fa-trash"></i> Eliminar Usuario
             </button>
             <a routerLink="/usuarios" class="btn btn-secondary">
               <i class="fas fa-arrow-left"></i> Volver a la Lista
@@ -133,7 +129,7 @@
           <small class="text-muted">
             <strong>ID del Producto:</strong> {{ Usuario.id }}<br>
             <strong>Última modificación:</strong><br>
-            {{ formatDate(Usuario.updatedDate) }}
+            {{ formatDate2(Usuario.updatedDate) }}
           </small>
         </div>
       </div>

@@ -124,20 +124,6 @@
                   {{ getFieldError('movil') }}
                 </div>
               </div>
-              <!-- Fecha -->
-              <div class="col-md-6 mb-3">
-                <label for="fecha" class="form-label">Fecha</label>
-                <input
-                  type="date"
-                  id="fecha"
-                  class="form-control"
-                  formControlName="fecha"
-                  [ngClass]="{ 'is-invalid': isFieldInvalid('fecha') }"
-                />
-                <div *ngIf="isFieldInvalid('fecha')" class="invalid-feedback">
-                  {{ getFieldError('fecha') }}
-                </div>
-              </div>
               <!-- Firma -->
               <div class="col-md-6 mb-3">
                 <label for="firma" class="form-label">Firma</label>
@@ -181,7 +167,6 @@
                 </div>
               </div>
             </div>  
-
             <!-- Botones -->
             <div class="d-flex gap-2 justify-content-end">
               <button type="button" class="btn btn-secondary" (click)="onCancel()">

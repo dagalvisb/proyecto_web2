@@ -54,7 +54,6 @@
               <th>CP</th>
               <th>Ciudad</th>
               <th>Móvil</th>
-              <th>Fecha</th>
               <th>Firma</th>
               <th>Bloque1</th>
               <th>Bloque2</th>
@@ -92,15 +91,14 @@
                   <td>{{ Usuario.cp }}</td>
                   <td>{{ Usuario.ciudad }}</td>
                   <td>{{ Usuario.movil }}</td>
-                  <td>{{ formatDate(Usuario.fecha) }}</td>
                   <td>{{ Usuario.firma }}</td>
                   <td>{{ Usuario.bloque1 }}</td>
                   <td>{{ Usuario.bloque2 }}</td>
                   <td>
-                    <small class="text-muted">{{ formatDate(Usuario.createdDate) }}</small>
+                    <small class="text-muted">{{ formatDate2(Usuario.createdDate) }}</small>
                   </td>
                   <td>
-                    <small class="text-muted">{{ formatDate(Usuario.updatedDate) }}</small>
+                    <small class="text-muted">{{ formatDate2(Usuario.updatedDate) }}</small>
                   </td>
                   <td>
                     <div class="btn-group btn-group-sm" role="group">
@@ -116,7 +114,7 @@
                       </a>
                       <button type="button" 
                               class="btn btn-outline-danger btn-sm" 
-                              (click)="onDeleteProduct(Usuario.id)"
+                              (click)="onDeleteUsuario(Usuario.id)"
                               title="Eliminar">
                         <i class="fas fa-trash"></i>
                       </button>
