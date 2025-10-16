@@ -127,7 +127,8 @@ export class UsuarioService {
     return usuarios.filter(usuario => 
       usuario.nombre.toLowerCase().includes(lowercaseQuery) ||
       usuario.dni.toLowerCase().includes(lowercaseQuery) ||
-      usuario.correo.toLowerCase().includes(lowercaseQuery)
+      usuario.correo.toLowerCase().includes(lowercaseQuery) ||
+      usuario.tipo_usuario.toLowerCase().includes(lowercaseQuery)
     );
   }
 

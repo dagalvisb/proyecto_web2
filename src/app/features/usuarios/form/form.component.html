@@ -124,6 +124,21 @@
                   {{ getFieldError('movil') }}
                 </div>
               </div>
+              <!--Tipo Usuario-->
+              <div class="col-md-6 mb-3">
+                <label for="tipo_usuario" class="form-label">Tipo de Usuario</label>
+                <select
+                  id="tipo_usuario"
+                  class="form-select"
+                  formControlName="tipo_usuario"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('tipo_usuario') }">
+                  <option value="" disabled selected>Seleccione un tipo de usuario</option>
+                  <option *ngFor="let tipo of tiposUsuarios" [value]="tipo">{{ tipo }}</option>
+                </select>
+                <div *ngIf="isFieldInvalid('tipo_usuario')" class="invalid-feedback">
+                  {{ getFieldError('tipo_usuario') }}
+                </div>
+              </div>
               <!-- Firma -->
               <div class="col-md-6 mb-3">
                 <label for="firma" class="form-label">Firma</label>

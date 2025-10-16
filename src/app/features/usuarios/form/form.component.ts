@@ -19,7 +19,7 @@ export class FormComponent implements OnInit {
   loading = false;
   error: string | null = null;
   usuarioId: number | null = null;
-  categories = ['Electrónicos', 'Muebles', 'Ropa', 'Hogar', 'Deportes', 'Libros', 'Otros'];
+  tiposUsuarios = ['Estudiante', 'Profesor'];
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +50,7 @@ export class FormComponent implements OnInit {
       ciudad: ['', [Validators.required, Validators.minLength(2)]],
       movil: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
       firma: ['', Validators.required],
+      tipo_usuario: ['', [Validators.required, Validators.minLength(2)]],
       bloque1: [''],
       bloque2: [''],
     });
@@ -73,6 +74,7 @@ export class FormComponent implements OnInit {
             ciudad: usuario.ciudad,
             movil: usuario.movil,
             firma: usuario.firma,
+            tipo_usuario: usuario.tipo_usuario,
             bloque1: usuario.bloque1,
             bloque2: usuario.bloque2,
           });

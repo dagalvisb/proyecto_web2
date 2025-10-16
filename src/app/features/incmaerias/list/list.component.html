@@ -3,7 +3,7 @@
   <div class="row mb-4">
     <div class="col-md-6">
       <h2 class="mb-0">Gestión de Inscripciones</h2>
-      <p class="text-muted">Administra de Inscripciones</p>
+      <p class="text-muted">Administrador de Inscripciones</p>
     </div>
     <div class="col-md-6 text-end">
       <a routerLink="/usuarios/create" class="btn btn-primary">
@@ -19,7 +19,7 @@
         <input
           type="text"
           class="form-control"
-          placeholder="Buscar Usuarios por nombre, dni o correo..."
+          placeholder="Buscar Inscripcion por Usuario o Materia..."
           [(ngModel)]="searchQuery"
           (keyup.enter)="onSearch()"
         />
@@ -58,8 +58,8 @@
                 <td colspan="9" class="text-center py-4">
                   <div class="text-muted">
                     <i class="fas fa-box-open fa-3x mb-3"></i>
-                    <p>No se encontraron Usuarios</p>
-                    <a routerLink="/incmaterias/create" class="btn btn-primary btn-sm">
+                    <p>No se encontraron Inscripciones</p>
+                    <a routerLink="/inscripciones/create" class="btn btn-primary btn-sm">
                       Crear primer Inscripción
                     </a>
                   </div>

@@ -13,7 +13,7 @@
   </div>
 
   <!-- Barra de búsqueda -->
-  <div class="row mb-4">
+    <div class="row mb-4">
     <div class="col-md-6">
       <div class="input-group">
         <input
@@ -31,10 +31,28 @@
         </button>
       </div>
     </div>
+
     <div class="col-md-6 text-end">
       <span class="badge bg-info">
         {{ filteredUsuarios.length }} Usuario(s) encontrado(s)
       </span>
+    </div>
+  </div>
+  
+  <div class="row mb-4">
+    <div class="col-md-2">
+      <div class="select-group">
+        <label for="tipo_usuario" class="form-label visually-hidden">Tipo de usuario</label>
+        <select
+          id="tipo_usuario"
+          class="form-select"
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="onSearch()"
+          title="Tipo de usuario">
+          <option value="" disabled selected>Seleccione un tipo de usuario</option>
+          <option *ngFor="let tipo of tiposUsuarios" [value]="tipo">{{ tipo }}</option>
+        </select>
+      </div>
     </div>
   </div>
 
@@ -55,6 +73,7 @@
               <th>Ciudad</th>
               <th>Móvil</th>
               <th>Firma</th>
+              <th>Tipo Usuario</th>
               <th>Bloque1</th>
               <th>Bloque2</th>
               <th>Creado</th>
@@ -92,8 +111,10 @@
                   <td>{{ Usuario.ciudad }}</td>
                   <td>{{ Usuario.movil }}</td>
                   <td>{{ Usuario.firma }}</td>
+                  <td>{{ Usuario.tipo_usuario }}</td >
                   <td>{{ Usuario.bloque1 }}</td>
                   <td>{{ Usuario.bloque2 }}</td>
+                  
                   <td>
                     <small class="text-muted">{{ formatDate2(Usuario.createdDate) }}</small>
                   </td>

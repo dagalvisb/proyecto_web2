@@ -11,6 +11,7 @@ export interface Usuario {
     firma: string;
     bloque1?: string;
     bloque2?: string;
+    tipo_usuario: string;
     createdDate: Date;
     updatedDate: Date;   
 }

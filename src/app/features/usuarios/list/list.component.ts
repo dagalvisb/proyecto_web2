@@ -14,9 +14,11 @@ import { UsuarioService } from '../../../services/usuario.service';
   styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit, OnDestroy {
+  tiposUsuarios = ['Estudiante', 'Profesor'];
   usuarios: Usuario[] = [];
   filteredUsuarios: Usuario[] = [];
   searchQuery: string = '';
+  searchTipoUsuario: string = '';
   loading = false;
   error: string | null = null;
   private subscription: Subscription = new Subscription();
@@ -66,8 +68,17 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
+  onSearch2(): void {
+    if (this.searchTipoUsuario.trim()) {
+      this.filteredUsuarios = this.usuarioService.searchUsuarios(this.searchQuery);
+    } else {
+      this.filteredUsuarios = this.usuarios;
+    }
+  }
+
   onClearSearch(): void {
     this.searchQuery = '';
+    this.searchTipoUsuario = '';
     this.filteredUsuarios = this.usuarios;
   }
 
@@ -133,4 +144,6 @@ export class ListComponent implements OnInit, OnDestroy {
     if (stock < 10) return 'text-warning fw-bold';
     return 'text-success';
   }
+
+  
 }
