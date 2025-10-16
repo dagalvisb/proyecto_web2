@@ -1,8 +1,10 @@
 export interface Materia {
-    id: string;
+    id: number;
     name: string;
     details: string;
     codigo: string;
     semestre: string;
     materia: string;
+    createdDate: Date;
+    updatedDate: Date;
 }

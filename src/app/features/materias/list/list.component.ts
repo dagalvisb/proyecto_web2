@@ -49,7 +49,7 @@ export class ListComponent implements OnInit, OnDestroy {
     this.filteredMaterias = this.materias;
   }
 
-  onDeleteMateria(id: string): void {
+  onDeleteMateria(id: number): void {
     if (confirm('¿Está seguro de que desea eliminar esta Materia?')) {
       const success = this.materiaService.deleteMateria(id);
       if (success) {

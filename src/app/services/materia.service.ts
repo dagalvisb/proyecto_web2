@@ -14,37 +14,46 @@ export class MateriaService {
     private getInitialMaterias(): Materia[] {
         return [
             {
-                id: '1',
+                id: 1,
                 codigo: 'MAT101',
                 name: 'Matemáticas I',
                 details: 'Curso introductorio de matemáticas',
                 semestre: '1',
-                materia: 'Matemáticas'
+                materia: 'Matemáticas',
+                createdDate: new Date(),
+                updatedDate: new Date()
             },
             {
-                id: '2',
+                id: 2,
                 codigo: 'MAT102',
                 name: 'Matemáticas II',
                 details: 'Curso avanzado de matemáticas',
                 semestre: '2',
-                materia: 'Matemáticas'
+                materia: 'Matemáticas',
+                createdDate: new Date(),
+                updatedDate: new Date()
             },
             {
-                id: '3',
+                id: 3,
                 codigo: 'FIS101',
                 name: 'Física I',
                 details: 'Curso introductorio de física',
                 semestre: '1',
-                materia: 'Física'
+                materia: 'Física',
+                createdDate: new Date(),
+                updatedDate: new Date()
             },
             {
-                id: '4',
+                id: 4,
                 codigo: 'FIS102',
                 name: 'Física II',
                 details: 'Curso avanzado de física',
                 semestre: '2',
-                materia: 'Física'
+                materia: 'Física',
+                createdDate: new Date(),
+                updatedDate: new Date()
             }
+            
         ];
     }
 
@@ -52,12 +61,12 @@ export class MateriaService {
         return this.materias$;
     }
 
-    getMateriaById(id: string): Materia | undefined {
+    getMateriaById(id: number): Materia | undefined {
         const materias = this.materiasSubject.getValue();
         return materias.find(materia => materia.id === id);
     };
 
-    updateMateria(id: string, materia: Partial<Omit<Materia, 'id'>>): Materia | null {
+    updateMateria(id: number, materia: Partial<Omit<Materia, 'id'>>): Materia | null {
         const materias = this.materiasSubject.getValue();
         const index = materias.findIndex(materia => materia.id === id);
 
@@ -79,7 +88,7 @@ export class MateriaService {
     }
 
     // Eliminar una materia
-    deleteMateria(id: string): boolean {
+    deleteMateria(id: number): boolean {
         const materias = this.materiasSubject.getValue();
         const index = materias.findIndex(m => m.id === id);
 
@@ -87,7 +96,7 @@ export class MateriaService {
             return false;
         }
 
-        const updatedMaterias = materias.filter(m => m.id !== id);
+        const updatedMaterias = materias.filter(m => (m.id) !== id);
         this.materiasSubject.next(updatedMaterias);
         return true;
     }

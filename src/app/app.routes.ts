@@ -25,6 +25,12 @@ export const routes: Routes = [
   },
 
   {
+    path: 'inscripciones',
+    loadChildren: () =>
+      import('./features/incmaerias/incmaterias.routes').then(m => m.INCMATERIAS_ROUTES),
+  },
+
+  {
     path: 'materias',
     loadChildren: () =>
       import('./features/materias/materias.routes').then(m => m.MATERIAS_ROUTES),
