@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IncmateriasService } from '../../../services/incmaterias.service';
-import { Usuario } from '../../../interfaces/usuario.interface';
+import { UsuarioService } from '../../../services/usuario.service';
+import { MateriaService } from '../../../services/materia.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -20,8 +21,15 @@ export class FormComponent implements OnInit {
   loading = false;
   error: string | null = null;
   IncMateriaId: number | null = null;
+  usuariosIdNombre: { id: number; nombre: string }[] = [];
+  materiasIdNombre: { id: number; name: string }[] = [];
+  usuarioSeleccionado: number | null = null;
+  materiaSeleccionada: number | null = null;
+
 
   constructor(
+    private UsuarioService: UsuarioService,
+    private MateriaService: MateriaService,
     private fb: FormBuilder,
     private IncMateriasService: IncmateriasService,
     private route: ActivatedRoute,
@@ -37,7 +45,18 @@ export class FormComponent implements OnInit {
       this.IncMateriaId = +id;
       this.loadIncMateria();
     }
+
+    this.UsuarioService.getUsuariosIdNombre().subscribe((data) => {
+      this.usuariosIdNombre = data;
+    });
+
+    this.MateriaService.getMateriasIdNombre().subscribe((data) => {
+      this.materiasIdNombre = data;
+    });
+
+
   }
+
 
   private createForm(): FormGroup {
     return this.fb.group({

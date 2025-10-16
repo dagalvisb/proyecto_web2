@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Materia } from '../interfaces/materias.interface';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class MateriaService {
 
     constructor() { }
 
-    private getInitialMaterias(): Materia[] {
+    getInitialMaterias(): Materia[] {
         return [
             {
                 id: 1,
@@ -55,6 +55,16 @@ export class MateriaService {
             }
             
         ];
+    }
+    getMateriasIdNombre(): Observable<{ id: number; name: string }[]> {
+        return this.materias$.pipe(
+            map((materias) =>
+            materias.map((m) => ({
+                id: m.id,
+                name: m.name,
+            }))
+            )
+        );
     }
 
     getMaterias(): Observable<Materia[]> {

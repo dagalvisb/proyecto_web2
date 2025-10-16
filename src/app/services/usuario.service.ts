@@ -37,6 +37,17 @@ export class UsuarioService {
     });
   }
 
+  getUsuariosIdNombre(): Observable<{ id: number; nombre: string }[]> {
+    return this.usuarios$.pipe(
+      map((usuarios) =>
+        usuarios.map((u) => ({
+          id: u.id,
+          nombre: u.nombre,
+        }))
+      )
+    );
+  }
+
   // Obtener todos los usuarioos
   getUsuarios(): Observable<Usuario[]> {
     return this.usuarios$;

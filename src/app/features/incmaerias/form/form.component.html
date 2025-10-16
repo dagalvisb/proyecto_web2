@@ -12,34 +12,34 @@
             <div class="row">
               
               <!-- usuario -->
-              <div class="col-md-6 mb-3">
+              <div class="mb-3">
                 <label for="usuario" class="form-label">Usuario</label>
-                <input
-                  type="text"
+                <select
                   id="usuario"
-                  class="form-control"
-                  formControlName="usuario"
-                  [ngClass]="{ 'is-invalid': isFieldInvalid('usuario') }"
-                />
-                <div *ngIf="isFieldInvalid('usuario')" class="invalid-feedback">
-                  {{ getFieldError('usuario') }}
-                </div>
+                  class="form-select"
+                  name="usuario">
+                  <option value="" disabled selected>Seleccione un usuario</option>
+                  <option *ngFor="let u of usuariosIdNombre" [value]="u.id">
+                    {{ u.nombre }}
+                  </option>
+                </select>
               </div>
 
               <!-- materia -->
-              <div class="col-md-6 mb-3">
+              <div class="mb-3">
                 <label for="materia" class="form-label">Materia</label>
-                <input
-                  type="text"
+                <select
                   id="materia"
-                  class="form-control"
-                  formControlName="materia"
-                  [ngClass]="{ 'is-invalid': isFieldInvalid('materia') }"
-                />
-                <div *ngIf="isFieldInvalid('materia')" class="invalid-feedback">
-                  {{ getFieldError('materia') }}
-                </div>
+                  class="form-select"
+                  name="materia"
+                  >
+                  <option value="" disabled selected>Seleccione una materia</option>
+                  <option *ngFor="let m of materiasIdNombre" [value]="m.id">
+                    {{ m.name }}
+                  </option>
+                </select>
               </div>
+
             </div>
              
             <!-- Botones -->
