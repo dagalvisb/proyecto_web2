@@ -46,8 +46,8 @@
         <select
           id="tipo_usuario"
           class="form-select"
-          [(ngModel)]="searchQuery"
-          (keyup.enter)="onSearch()"
+          [(ngModel)]="searchTipoUsuario"
+          (change)="onSearch2()"
           title="Tipo de usuario">
           <option value="" disabled selected>Seleccione un tipo de usuario</option>
           <option *ngFor="let tipo of tiposUsuarios" [value]="tipo">{{ tipo }}</option>

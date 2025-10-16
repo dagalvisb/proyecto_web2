@@ -70,7 +70,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   onSearch2(): void {
     if (this.searchTipoUsuario.trim()) {
-      this.filteredUsuarios = this.usuarioService.searchUsuarios(this.searchQuery);
+      this.filteredUsuarios = this.usuarioService.searchUsuarios(this.searchTipoUsuario);
     } else {
       this.filteredUsuarios = this.usuarios;
     }
