@@ -56,12 +56,13 @@ export class MateriaService {
             
         ];
     }
-    getMateriasIdNombre(): Observable<{ id: number; name: string }[]> {
+    getMateriasIdNombre(): Observable<{ id: number; name: string; semestre: string }[]> {
         return this.materias$.pipe(
             map((materias) =>
             materias.map((m) => ({
                 id: m.id,
                 name: m.name,
+                semestre: m.semestre
             }))
             )
         );

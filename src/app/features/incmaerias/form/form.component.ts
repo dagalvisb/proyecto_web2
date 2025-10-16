@@ -4,8 +4,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IncmateriasService } from '../../../services/incmaterias.service';
 import { UsuarioService } from '../../../services/usuario.service';
+
 import { MateriaService } from '../../../services/materia.service';
 import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-form',
@@ -22,7 +24,7 @@ export class FormComponent implements OnInit {
   error: string | null = null;
   IncMateriaId: number | null = null;
   usuariosIdNombre: { id: number; nombre: string }[] = [];
-  materiasIdNombre: { id: number; name: string }[] = [];
+  materiasIdNombre: { id: number; name: string; semestre: string}[] = [];
   usuarioSeleccionado: number | null = null;
   materiaSeleccionada: number | null = null;
 
@@ -39,6 +41,7 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEditMode = true;
@@ -60,8 +63,8 @@ export class FormComponent implements OnInit {
 
   private createForm(): FormGroup {
     return this.fb.group({
-      usuario: ['', [Validators.required, Validators.minLength(2)]],
-      materia: ['', [Validators.required, Validators.minLength(2)]],
+      usuario: [''],
+      materia: [''],
     });
   }
 
@@ -99,7 +102,7 @@ export class FormComponent implements OnInit {
 
 
       if (this.isEditMode && this.IncMateriaId) {
-        // Actualizar usuario existente
+        // Actualizar inscripcion existente
         this.IncMateriasService.updateIncMateria(this.IncMateriaId, formValue).subscribe({
           next: () => {
             alert('Inscripción actualizada exitosamente');
@@ -112,7 +115,7 @@ export class FormComponent implements OnInit {
           }
         });
       } else {
-        // Crear nuevo usuario
+        // Crear nuevo inscripcion
         this.IncMateriasService.createIncMateria(formValue).subscribe({
           next: () => {
             alert('Inscripción creada exitosamente');

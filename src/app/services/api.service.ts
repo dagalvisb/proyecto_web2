@@ -147,7 +147,7 @@ export class ApiService {
     };
 
     console.log(IncMateriaToSend);
-    return this.http.post<IncMateria>(`${this.baseUrl}/Usuarios/CrearUsuario`, IncMateriaToSend, this.httpOptions)
+    return this.http.post<IncMateria>(`${this.baseUrl}/Usuarios/CrearincMaterias`, IncMateriaToSend, this.httpOptions)
       .pipe(
         map(IncMateria => ({
           ...IncMateria,
@@ -206,7 +206,7 @@ export class ApiService {
 
     console.log("Variable de IncMateria", IncMateriaToSend);
 
-    return this.http.put<IncMateria>(`${this.baseUrl}/Usuarios/EditarUsuario?id=${id}`, IncMateriaToSend, this.httpOptions)
+    return this.http.put<IncMateria>(`${this.baseUrl}/Usuarios/EditarIncMaterias?id=${id}`, IncMateriaToSend, this.httpOptions)
       .pipe(
         map(IncMateria => ({
           ...IncMateria,

@@ -17,10 +17,11 @@
                 <select
                   id="usuario"
                   class="form-select"
-                  name="usuario">
+                  name="usuario"
+                  formControlName="usuario">
                   <option value="" disabled selected>Seleccione un usuario</option>
-                  <option *ngFor="let u of usuariosIdNombre" [value]="u.id">
-                    {{ u.nombre }}
+                  <option *ngFor="let u of usuariosIdNombre" [value]="u.nombre">
+                    {{u.id}} {{u.nombre}}
                   </option>
                 </select>
               </div>
@@ -32,10 +33,10 @@
                   id="materia"
                   class="form-select"
                   name="materia"
-                  >
+                  formControlName="materia">
                   <option value="" disabled selected>Seleccione una materia</option>
-                  <option *ngFor="let m of materiasIdNombre" [value]="m.id">
-                    {{ m.name }}
+                  <option *ngFor="let m of materiasIdNombre" [value]="m.name + ' Semestre ' + m.semestre">
+                    {{m.id}} {{m.name}} {{m.semestre}}
                   </option>
                 </select>
               </div>
