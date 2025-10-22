@@ -143,7 +143,7 @@ export class FormComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/usuarios']);
+    this.router.navigate(['/inscripciones']);
   }
 
   getFieldError(fieldName: string): string {

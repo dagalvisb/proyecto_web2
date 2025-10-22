@@ -3,11 +3,13 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { IncMateria } from '../interfaces/incmaterias.interface';
 import { ApiService } from './api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IncmateriasService {
+  private apiUrl = 'https://localhost:7248/api/Usuarios'; // URL base de tu backend
   private incMateriasSubject = new BehaviorSubject<IncMateria[]>([]);
   public incMaterias$ = this.incMateriasSubject.asObservable();
   private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -15,7 +17,7 @@ export class IncmateriasService {
   private errorSubject = new BehaviorSubject<string | null>(null);
   public error$ = this.errorSubject.asObservable();
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private http: HttpClient) {
     this.loadIncMaterias();
   }
 
@@ -36,6 +38,7 @@ export class IncmateriasService {
       }
     });
   }
+
 
   // Obtener todos los incMateriaos
   getIncMaterias(): Observable<IncMateria[]> {
@@ -128,6 +131,11 @@ export class IncmateriasService {
       incMateria.usuario.toLowerCase().includes(lowercaseQuery) ||
       incMateria.materia.toLowerCase().includes(lowercaseQuery) 
     );
+  }
+
+  // Método para obtener materias únicas
+  getMateriasUnicas(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/Unicas`);
   }
 
   // Recargar incMateriaos desde la API

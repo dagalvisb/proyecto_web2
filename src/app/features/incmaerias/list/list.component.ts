@@ -14,14 +14,19 @@ import { IncmateriasService } from '../../../services/incmaterias.service';
   styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit, OnDestroy {
+  materias: string[] = [];  // ← Aquí se guardarán las materias
   incMaterias: IncMateria[] = [];
   filteredIncMaterias: IncMateria[] = [];
   searchQuery: string = '';
+  searchMateria: string = '';
   loading = false;
   error: string | null = null;
   private subscription: Subscription = new Subscription();
 
   constructor(private incMateriaService: IncmateriasService) {}
+
+  
+
 
   ngOnInit(): void {
     // Suscribirse a los incMaterias
@@ -29,6 +34,7 @@ export class ListComponent implements OnInit, OnDestroy {
       this.incMateriaService.getIncMaterias().subscribe(incMaterias => {
         this.incMaterias = incMaterias;
         this.filteredIncMaterias = incMaterias;
+        this.cargarMateriasUnicas();
       })
     );
 
@@ -47,6 +53,18 @@ export class ListComponent implements OnInit, OnDestroy {
     );
   } 
 
+  cargarMateriasUnicas(): void {
+    this.incMateriaService.getMateriasUnicas().subscribe({
+      next: (data) => {
+        this.materias = data;
+        console.log('Materias cargadas:', this.materias);
+      },
+      error: (err) => {
+        console.error('Error al obtener las materias únicas', err);
+      }
+    });
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -54,6 +72,14 @@ export class ListComponent implements OnInit, OnDestroy {
   onSearch(): void {
     if (this.searchQuery.trim()) {
       this.filteredIncMaterias = this.incMateriaService.searchIncMaterias(this.searchQuery);
+    } else {
+      this.filteredIncMaterias = this.incMaterias;
+    }
+  }
+
+  onSearch2(): void {
+    if (this.searchMateria.trim()) {
+      this.filteredIncMaterias = this.incMateriaService.searchIncMaterias(this.searchMateria);
     } else {
       this.filteredIncMaterias = this.incMaterias;
     }

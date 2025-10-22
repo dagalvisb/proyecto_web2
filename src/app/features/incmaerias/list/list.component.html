@@ -38,6 +38,24 @@
     </div>
   </div>
 
+   <!-- selector de busqueda -->
+  <div class="row mb-4">
+    <div class="col-md-2">
+      <div class="select-group">
+        <label for="materia" class="form-label visually-hidden">Materias</label>
+        <select
+          id="materia"
+          class="form-select"
+          [(ngModel)]="searchMateria"
+          (change)="onSearch2()"
+          title="Materias">
+          <option value="" disabled selected>Seleccione una materia</option>
+          <option *ngFor="let materia of materias" [value]="materia">{{ materia }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <!--Tabla de Inscripciones-->
   <div class="card">
     <div class="card-body p-0">
