@@ -14,7 +14,7 @@ import { IncmateriasService } from '../../../services/incmaterias.service';
   styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit, OnDestroy {
-  materias: string[] = [];  // ← Aquí se guardarán las materias
+  materias: string[] = [];  
   incMaterias: IncMateria[] = [];
   filteredIncMaterias: IncMateria[] = [];
   searchQuery: string = '';

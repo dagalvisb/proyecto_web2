@@ -107,13 +107,13 @@
         </div>
         <div class="card-body">
           <div class="d-grid gap-2">
-            <a [routerLink]="['/usuarios/edit', Usuario.id]" class="btn btn-warning">
-              <i class="fas fa-edit"></i> Editar Usuario
+            <a [routerLink]="['/inscripciones/edit', Usuario.id]" class="btn btn-warning">
+              <i class="fas fa-edit"></i> Editar inscripcion
             </a>
             <button type="button" class="btn btn-danger" (click)="onDeleteUsuario()">
-              <i class="fas fa-trash"></i> Eliminar Usuario
+              <i class="fas fa-trash"></i> Eliminar inscripcion
             </button>
-            <a routerLink="/usuarios" class="btn btn-secondary">
+            <a routerLink="/inscripciones" class="btn btn-secondary">
               <i class="fas fa-arrow-left"></i> Volver a la Lista
             </a>
           </div>
@@ -127,7 +127,7 @@
         </div>
         <div class="card-body">
           <small class="text-muted">
-            <strong>ID del Producto:</strong> {{ Usuario.id }}<br>
+            <strong>ID de la inscripcion:</strong> {{ Usuario.id }}<br>
             <strong>Última modificación:</strong><br>
             {{ formatDate2(Usuario.updatedDate) }}
           </small>
