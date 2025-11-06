@@ -4,6 +4,7 @@ import { UsuarioService } from '../../../services/usuario.service';
 import { ListComponent } from './list.component';
 import { Usuario } from '../../../interfaces/usuario.interface';
 import { BehaviorSubject } from 'rxjs';
+import { mock } from 'node:test';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -12,8 +13,8 @@ describe('ListComponent', () => {
   let loadingSubjet: BehaviorSubject<boolean>;
   let errorSubject: BehaviorSubject<string | null>;
 
-  const mpckUsuario: Usuario = {
-    id : 1,
+  const mockUsuario: Usuario = {
+    id: 1,
     nombre: 'Juan Perez',
     lugarNacimiento: 'Madrid',
     dni: '12345678A',
@@ -26,7 +27,7 @@ describe('ListComponent', () => {
     tipo_usuario: 'estudiante',
     createdDate: new Date('2023-01-01T10:00:00Z'),
     updatedDate: new Date('2023-06-01T12:00:00Z'),
-  } 
+  }
 
 
 
@@ -47,14 +48,25 @@ describe('ListComponent', () => {
         { provide: UsuarioService, useValue: usuarioServiceSpy }
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     usuarioService = TestBed.inject(UsuarioService) as jasmine.SpyObj<UsuarioService>;
   });
 
+
+
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('ngOnInit', () => {
+    it('should subscribe to usuarios', () => {
+      component.ngOnInit();
+      expect(usuarioService.getUsuarios).toHaveBeenCalled();
+      expect(component.usuarios).toEqual([mockUsuario]);
+      expect(component.filteredUsuarios).toEqual([mockUsuario]);
+    });
   });
 });
