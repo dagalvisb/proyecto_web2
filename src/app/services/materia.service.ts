@@ -19,7 +19,8 @@ export class MateriaService {
                 name: 'Matemáticas I',
                 details: 'Curso introductorio de matemáticas',
                 semestre: '1',
-                materia: 'Matemáticas'
+                materia: 'Matemáticas',
+                modalidad: 'Presencial'
             },
             {
                 id: '2',
@@ -27,7 +28,8 @@ export class MateriaService {
                 name: 'Matemáticas II',
                 details: 'Curso avanzado de matemáticas',
                 semestre: '2',
-                materia: 'Matemáticas'
+                materia: 'Matemáticas',
+                modalidad: 'Presencial'
             },
             {
                 id: '3',
@@ -35,7 +37,8 @@ export class MateriaService {
                 name: 'Física I',
                 details: 'Curso introductorio de física',
                 semestre: '1',
-                materia: 'Física'
+                materia: 'Física',
+                modalidad: 'Presencial'
             },
             {
                 id: '4',
@@ -43,7 +46,8 @@ export class MateriaService {
                 name: 'Física II',
                 details: 'Curso avanzado de física',
                 semestre: '2',
-                materia: 'Física'
+                materia: 'Física',
+                modalidad: 'Virtual'
             }
         ];
     }
@@ -56,6 +60,22 @@ export class MateriaService {
         const materias = this.materiasSubject.getValue();
         return materias.find(materia => materia.id === id);
     };
+
+    // Crear una nueva materia
+    createMateria(materiaData: Omit<Materia, 'id'>): Materia {
+        const materias = this.materiasSubject.getValue();
+        const newId = (Math.max(...materias.map(m => parseInt(m.id))) + 1).toString();
+        
+        const newMateria: Materia = {
+            id: newId,
+            ...materiaData
+        };
+
+        const updatedMaterias = [...materias, newMateria];
+        this.materiasSubject.next(updatedMaterias);
+        
+        return newMateria;
+    }
 
     updateMateria(id: string, materia: Partial<Omit<Materia, 'id'>>): Materia | null {
         const materias = this.materiasSubject.getValue();
@@ -101,7 +121,8 @@ export class MateriaService {
             materia.name.toLowerCase().includes(lowercaseQuery) ||
             materia.codigo.toLowerCase().includes(lowercaseQuery) ||
             materia.details.toLowerCase().includes(lowercaseQuery) ||
-            materia.materia.toLowerCase().includes(lowercaseQuery)
+            materia.materia.toLowerCase().includes(lowercaseQuery) ||
+            materia.modalidad.toLowerCase().includes(lowercaseQuery)
         );
     }
 

@@ -6,6 +6,7 @@ import { Materia } from '../../../interfaces/materias.interface';
 import { MateriaService } from '../../../services/materia.service';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -14,13 +15,15 @@ import { Subscription } from 'rxjs';
     FormsModule
   ],
   templateUrl: './list.component.html',
-  styleUrl: './list.component.css'
+  styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit, OnDestroy {
 
   materias: Materia[] = [];
   filteredMaterias: Materia[] = [];
   searchQuery: string = '';
+  modalidades: string[] = ['Presencial', 'Virtual', 'Híbrida'];
+  selectedModalidad: string = '';
   private subscription: Subscription = new Subscription();
 
   constructor(private materiaService: MateriaService) {}
@@ -30,6 +33,10 @@ export class ListComponent implements OnInit, OnDestroy {
       this.materias = materias;
       this.filteredMaterias = materias;
     });
+  }
+
+  trackById(index: number, item: Materia): string {
+    return item.id;
   }
 
   ngOnDestroy(): void {

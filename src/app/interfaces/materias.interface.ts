@@ -5,4 +5,5 @@ export interface Materia {
     codigo: string;
     semestre: string;
     materia: string;
+    modalidad: string;
 }

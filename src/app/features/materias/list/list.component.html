@@ -13,15 +13,15 @@
     </div>
 
     <!-- Barra de búsqueda -->
-    <div class="row mb-4">
+    <div class="row mb-5">
         <div class="col-md-6">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Buscar Materias por nombre o ID..."
                     [(ngModel)]="searchQuery" />
-                <button class="btn btn-outline-secondary" type="button">
+                <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">
                     <i class="fas fa-search"></i> Buscar
                 </button>
-                <button class="btn btn-outline-secondary" type="button">
+                <button class="btn btn-outline-secondary" type="button" (click)="onClearSearch()">
                     <i class="fas fa-times"></i> Limpiar
                 </button>
             </div>
@@ -31,6 +31,14 @@
                 {{ filteredMaterias.length }} Materia(s) encontrada(s)
             </span>
         </div>
+    </div>
+    <!--Filtro modalidad-->
+    <div class="mb-3">
+        <label for="modalidad" class="form-label">Modalidad</label>
+        <select id="modalidad" class="form-select" [(ngModel)]="selectedModalidad" name="modalidad" [(ngModel)]="searchQuery">
+            <option value="">Todos</option>
+            <option *ngFor="let mod of modalidades" [value]="mod">{{ mod }}</option>
+        </select>
     </div>
 
     <!--Tabla de Usuarios-->
@@ -46,12 +54,12 @@
                             <th>Código</th>
                             <th>Semestre</th>
                             <th>Materia</th>
+                            <th>Modalidad</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if (filteredMaterias.length === 0) {
-                        <tr>
+                        <tr *ngIf="filteredMaterias.length === 0">
                             <td colspan="9" class="text-center py-4">
                                 <div class="text-muted">
                                     <i class="fas fa-box-open fa-3x mb-3"></i>
@@ -62,38 +70,35 @@
                                 </div>
                             </td>
                         </tr>
-                        } @else {
-                        @for (Materia of filteredMaterias; track Materia.id) {
-                        <tr>
+                        <tr *ngFor="let materia of filteredMaterias; trackBy: trackById">
                             <td>
-                                <span class="badge bg-secondary">{{ Materia.id }}</span>
+                                <span class="badge bg-secondary">{{ materia.id }}</span>
                             </td>
                             <td>
-                                <strong>{{ Materia.name }}</strong>
+                                <strong>{{ materia.name }}</strong>
                             </td>
-                            <td>{{ Materia.details }}</td>
-                            <td>{{ Materia.codigo }}</td>
-                            <td>{{ Materia.semestre }}</td>
-                            <td>{{ Materia.materia }}</td>
+                            <td>{{ materia.details }}</td>
+                            <td>{{ materia.codigo }}</td>
+                            <td>{{ materia.semestre }}</td>
+                            <td>{{ materia.materia }}</td>
+                            <td>{{ materia.modalidad }}</td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a [routerLink]="['/materias', Materia.id]" class="btn btn-outline-info btn-sm"
-                                        title="Ver detalles">
+                                    <a [routerLink]="['/materias/details', materia.id]"
+                                        class="btn btn-outline-info btn-sm" title="Ver detalles">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a [routerLink]="['/materias/edit', Materia.id]"
+                                    <a [routerLink]="['/materias/form', materia.id]"
                                         class="btn btn-outline-warning btn-sm" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <button type="button" class="btn btn-outline-danger btn-sm"
-                                        (click)="onDeleteMateria(Materia.id)" title="Eliminar">
+                                        (click)="onDeleteMateria(materia.id)" title="Eliminar">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                        }
-                        }
                     </tbody>
                 </table>
             </div>
