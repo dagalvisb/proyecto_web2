@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Usuario } from '../../../interfaces/usuario.interface';
-import { UsuarioService } from '../../../services/usuario.service';
+import { IncMateria } from '../../../interfaces/incmaterias.interface';
+import { IncmateriasService } from '../../../services/incmaterias.service';
 
 @Component({
   selector: 'app-detail',
@@ -12,7 +12,7 @@ import { UsuarioService } from '../../../services/usuario.service';
   styleUrl: './detail.component.css',
 })
 export class DetailComponent implements OnInit {
-  Usuario: Usuario | undefined;
+  IncMateria: IncMateria | undefined;
   id: number = 0;
   loading = false;
   error: string | null = null;
@@ -20,7 +20,7 @@ export class DetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private usuarioService: UsuarioService,
+    private incMateriaService: IncmateriasService,
     private router: Router
   ) {}
 
@@ -28,23 +28,23 @@ export class DetailComponent implements OnInit {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.id = +idParam;
-      this.loadUsuario();
+      this.loadIncMateria();
     }
   }
 
-  private loadUsuario(): void {
+  private loadIncMateria(): void {
     this.loading = true;
     this.error = null;
     
-    this.usuarioService.getUsuarioById(this.id).subscribe({
-      next: (usuario) => {
-        this.Usuario = usuario;
+    this.incMateriaService.getIncMateriaById(this.id).subscribe({
+      next: (incMateria) => {
+        this.IncMateria = incMateria;
         this.loading = false;
       },
       error: (error) => {
         this.error = error.message;
         this.loading = false;
-        console.error('Error cargando usuario:', error);
+        console.error('Error cargando incMateria:', error);
       }
     });
   }
@@ -53,29 +53,29 @@ export class DetailComponent implements OnInit {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.id = +idParam;
-      this.Usuario = this.usuarioService.getUsuarioById(this.id);
+      this.IncMateria = this.incMateriaService.getIncMateriaById(this.id);
       
-      if (!this.Usuario) {
-        alert('Usuario no encontrado');
-        this.router.navigate(['/usuarios']);
+      if (!this.IncMateria) {
+        alert('IncMateria no encontrado');
+        this.router.navigate(['/incMaterias']);
       }
     }
   }*/
 
-    onDeleteUsuario(): void {
-    if (this.Usuario && confirm('¿Está seguro de que desea eliminar este usuario?')) {
+    onDeleteIncMateria(): void {
+    if (this.IncMateria && confirm('¿Está seguro de que desea eliminar este incMateria?')) {
       this.loading = true;
       this.error = null;
       
-      this.usuarioService.deleteUsuario(this.Usuario.id).subscribe({
+      this.incMateriaService.deleteIncMateria(this.IncMateria.id).subscribe({
         next: () => {
-          alert('Usuario eliminado exitosamente');
-          this.router.navigate(['/usuarios']);
+          alert('IncMateria eliminada exitosamente');
+          this.router.navigate(['/incMaterias']);
         },
         error: (error) => {
           this.error = error.message;
           this.loading = false;
-          alert(`Error al eliminar el usuarioo: ${error.message}`);
+          alert(`Error al eliminar el incMateria: ${error.message}`);
         }
       });
     }
@@ -85,14 +85,14 @@ export class DetailComponent implements OnInit {
     this.error = null;
   }
 
-  /*onDeleteUsuario(): void {
-    if (this.Usuario && confirm('¿Está seguro de que desea eliminar este usuario?')) {
-      const success = this.usuarioService.deleteUsuario(this.Usuario.id);
+  /*onDeleteIncMateria(): void {
+    if (this.IncMateria && confirm('¿Está seguro de que desea eliminar este incMateria?')) {
+      const success = this.incMateriaService.deleteIncMateria(this.IncMateria.id);
       if (success) {
-        alert('Usuario eliminado exitosamente');
-        this.router.navigate(['/usuario']);
+        alert('IncMateria eliminado exitosamente');
+        this.router.navigate(['/incMateria']);
       } else {
-        alert('Error al eliminar el usuario');
+        alert('Error al eliminar el incMateria');
       }
     }
   }*/
