@@ -7,6 +7,8 @@ export const API_CONFIG = {
     editarUsuario: '/Usuarios/EditarUsuario',
     eliminarUsuario: '/Usuarios/EliminarUsuario'*/
     usuarios: '/Usuarios',
+    materias: '/Materias',
+    incmaterias: '/IncMaterias'
     
   },
   headers: {
