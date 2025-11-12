@@ -3,8 +3,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { UsuarioService } from '../../../services/usuario.service';
 import { ListComponent } from './list.component';
 import { Usuario } from '../../../interfaces/usuario.interface';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { mock } from 'node:test';
+
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -55,7 +56,11 @@ describe('ListComponent', () => {
     usuarioService = TestBed.inject(UsuarioService) as jasmine.SpyObj<UsuarioService>;
   });
 
-
+  beforeEach(() => {
+    usuarioService.getUsuarios.and.returnValue(of([mockUsuario]));
+    loadingSubjet.next(false);
+    errorSubject.next(null);
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -69,4 +74,36 @@ describe('ListComponent', () => {
       expect(component.filteredUsuarios).toEqual([mockUsuario]);
     });
   });
+
+  describe('ngOnDestroy', () => {
+    it('should unsubscribe from all subscriptions', () => {
+      component.ngOnInit();
+      spyOn(component['subscription'], 'unsubscribe');
+      component.ngOnDestroy();
+      expect(component['subscription'].unsubscribe).toHaveBeenCalled();
+    });
+  });
+
+  describe('onSearch', () => {
+    it('should filter usuarios based on searchQuery', () => {
+      component.ngOnInit();
+      component.searchQuery = 'Juan';
+      usuarioService.searchUsuarios.and.returnValue([mockUsuario]);
+      component.onSearch();
+      expect(usuarioService.searchUsuarios).toHaveBeenCalledWith('Juan');
+      expect(component.filteredUsuarios).toEqual([mockUsuario]);
+    });
+
+    it('should reset filteredUsuarios if searchQuery is empty', () => {
+      component.ngOnInit();
+      component.searchQuery = '  ';
+      component.onSearch();
+      expect(component.filteredUsuarios).toEqual(component.usuarios);
+    });
+  });
+
+
+
 });
+
+
