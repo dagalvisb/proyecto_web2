@@ -1,10 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BehaviorSubject, of, throwError } from 'rxjs';
+import { Usuario } from '../../../interfaces/usuario.interface';
 import { UsuarioService } from '../../../services/usuario.service';
 import { ListComponent } from './list.component';
-import { Usuario } from '../../../interfaces/usuario.interface';
-import { BehaviorSubject, of } from 'rxjs';
-import { mock } from 'node:test';
 
 
 describe('ListComponent', () => {
@@ -37,7 +36,7 @@ describe('ListComponent', () => {
     loadingSubjet = new BehaviorSubject<boolean>(false);
     errorSubject = new BehaviorSubject<string | null>(null);
 
-    const usuarioServiceSpy = jasmine.createSpyObj('UsuarioService', ['getUsuarios', 'searchUsuarios', 'deleteUsuarios', 'refreshUsuarios', 'clearError'], {
+    const usuarioServiceSpy = jasmine.createSpyObj('UsuarioService', ['getUsuarios', 'searchUsuarios', 'deleteUsuario', 'refreshUsuarios', 'clearError'], {
       loading$: loadingSubjet.asObservable(),
       error$: errorSubject.asObservable(),
     });
@@ -73,9 +72,26 @@ describe('ListComponent', () => {
       expect(component.usuarios).toEqual([mockUsuario]);
       expect(component.filteredUsuarios).toEqual([mockUsuario]);
     });
+
+    it('should subscribe to loading$', () => {   
+      component.ngOnInit();
+      loadingSubjet.next(true);
+      expect(component.loading).toBeTrue();
+      loadingSubjet.next(false);
+      expect(component.loading).toBeFalse();
+    });
+
+    it('should subscribe to error$', () => {
+      component.ngOnInit();
+      errorSubject.next('Error occurred');
+      expect(component.error).toBe('Error occurred');
+      errorSubject.next(null);
+      expect(component.error).toBeNull();
+    }); 
   });
 
   describe('ngOnDestroy', () => {
+    
     it('should unsubscribe from all subscriptions', () => {
       component.ngOnInit();
       spyOn(component['subscription'], 'unsubscribe');
@@ -87,8 +103,8 @@ describe('ListComponent', () => {
   describe('onSearch', () => {
     it('should filter usuarios based on searchQuery', () => {
       component.ngOnInit();
-      component.searchQuery = 'Juan';
       usuarioService.searchUsuarios.and.returnValue([mockUsuario]);
+      component.searchQuery = 'Juan';
       component.onSearch();
       expect(usuarioService.searchUsuarios).toHaveBeenCalledWith('Juan');
       expect(component.filteredUsuarios).toEqual([mockUsuario]);
@@ -96,14 +112,81 @@ describe('ListComponent', () => {
 
     it('should reset filteredUsuarios if searchQuery is empty', () => {
       component.ngOnInit();
-      component.searchQuery = '  ';
+      component.searchQuery = '   ';
       component.onSearch();
-      expect(component.filteredUsuarios).toEqual(component.usuarios);
+      expect(component.filteredUsuarios).toEqual([mockUsuario]);
     });
   });
 
+  describe('onSearch2', () => {
+    it('should filter usuarios based on searchTipoUsuario', () => {
+      component.ngOnInit();
+      usuarioService.searchUsuarios.and.returnValue([mockUsuario]);
+      component.searchTipoUsuario = 'estudiante';
+      component.onSearch2();
+      expect(usuarioService.searchUsuarios).toHaveBeenCalledWith('estudiante');
+      expect(component.filteredUsuarios).toEqual([mockUsuario]);
+    });
 
+    it('should reset filteredUsuarios if searchTipoUsuario is empty', () => {
+      component.ngOnInit();
+      component.searchTipoUsuario = '   ';
+      component.onSearch2();
+      expect(component.filteredUsuarios).toEqual([mockUsuario]);
+    });
+  });
 
+  describe ('onDeleteUsuario', () => {
+    it('should call deleteUsuarios and refreshUsuarios', () => {
+      spyOn(window, 'confirm').and.returnValue(true);
+      spyOn(window, 'alert');
+      usuarioService.deleteUsuario.and.returnValue(of(true));
+
+      component.onDeleteUsuario(1);
+      
+      expect(window.confirm).toHaveBeenCalledWith('¿Está seguro de que desea eliminar este usuario?');
+      expect(usuarioService.deleteUsuario).toHaveBeenCalledWith(1);
+      expect(window.alert).toHaveBeenCalledWith('Usuario eliminado exitosamente');
+    });
+
+    it('should show alert on deleteUsuarios error', () => {
+      
+      
+      spyOn(window, 'confirm').and.returnValue(true);
+      spyOn(window, 'alert');
+      const error = new Error('Delete failed');
+      usuarioService.deleteUsuario.and.returnValue(throwError(() => error));
+
+      component.onDeleteUsuario(1);
+      expect(window.alert).toHaveBeenCalledWith(`Error al eliminar el producto: Delete failed`);
+    });
+  });
+
+  describe('onClearSearch', () => {
+    it('should clear search fields and reset filteredUsuarios', () => {
+      component.ngOnInit();
+      component.searchQuery = 'Juan';
+      component.searchTipoUsuario = 'estudiante';
+      component.onClearSearch();
+      expect(component.searchQuery).toBe('');
+      expect(component.searchTipoUsuario).toBe('');
+      expect(component.filteredUsuarios).toEqual([mockUsuario]);
+    });
+
+  });
+
+  describe('onRefresh', () => {
+    it('should call refreshUsuarios', () => {
+      component.onRefresh();
+      expect(usuarioService.refreshUsuarios).toHaveBeenCalled();
+    });
+  });
+  
+  describe('onClearError', () => {
+    it('should call clearError', () => {
+      component.onClearError();
+      expect(usuarioService.clearError).toHaveBeenCalled();
+    });
+  });
+    
 });
-
-

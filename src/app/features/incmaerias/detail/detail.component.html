@@ -1,31 +1,31 @@
-<div class="container mt-4" *ngIf="Usuario">
+<div class="container mt-4" *ngIf="IncMateria">
   <!-- Header con navegación -->
   <div class="row mb-4">
     <div class="col-12">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a routerLink="/usuarios">Usuarios</a>
+            <a routerLink="/incMaterias">IncMaterias</a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
-            {{ Usuario.nombre }}
+            {{ IncMateria.usuario }}
           </li>
         </ol>
       </nav>
     </div>
   </div>
 
-  <!-- Información del usuario -->
+  <!-- Información del incMateria -->
   <div class="row">
     <div class="col-md-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h3 class="mb-0">{{ Usuario.nombre }}</h3>
+          <h3 class="mb-0">{{ IncMateria.usuario }}</h3>
           <div class="btn-group" role="group">
-            <a [routerLink]="['/usuarios/edit', Usuario.id]" class="btn btn-warning btn-sm">
+            <a [routerLink]="['/inscripciones/edit', IncMateria.id]" class="btn btn-warning btn-sm">
               <i class="fas fa-edit"></i> Editar
             </a>
-            <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteUsuario()">
+            <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteIncMateria()">
               <i class="fas fa-trash"></i> Eliminar
             </button>
           </div>
@@ -37,47 +37,11 @@
               <table class="table table-borderless">
                 <tr>
                   <td><strong>ID:</strong></td>
-                  <td><span class="badge bg-secondary">{{ Usuario.id }}</span></td>
+                  <td><span class="badge bg-secondary">{{ IncMateria.id }}</span></td>
                 </tr>
                 <tr>
-                  <td><strong>Lugar de Nacimiento:</strong></td>
-                  <td><span>{{ Usuario.lugarNacimiento }}</span></td>
-                </tr>
-                <tr>
-                  <td><strong>DNI:</strong></td>
-                  <td><span>{{ Usuario.dni }}</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Correo:</strong></td>
-                  <td><span>{{ Usuario.correo }}</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Dirección:</strong>
-                  <td><span>{{ Usuario.direccion }}</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Código Postal:</strong></td>
-                  <td><span>{{ Usuario.cp }}</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Ciudad:</strong></td>
-                  <td><span>{{ Usuario.ciudad }}</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Móvil:</strong></td>
-                  <td><span>{{ Usuario.movil }}</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Firma:</strong></td>
-                  <td><span>{{ Usuario.firma }}</span></td>
-                </tr>
-                <tr *ngIf="Usuario.bloque1">
-                  <td><strong>Bloque 1:</strong></td>
-                  <td><span>{{ Usuario.bloque1 }}</span></td>
-                </tr>
-                <tr *ngIf="Usuario.bloque2">
-                  <td><strong>Bloque 2:</strong></td>
-                  <td><span>{{ Usuario.bloque2 }}</span></td>
+                  <td><strong>Materia:</strong></td>
+                  <td>{{ IncMateria.materia }}</td>
                 </tr>
               </table>
             </div>
@@ -86,12 +50,9 @@
               <table class="table table-borderless">
                 <tr>
                   <td><strong>Creado:</strong></td>
-                  <td><small class="text-muted">{{ formatDate2(Usuario.createdDate) }}</small></td>
+                  <td><small class="text-muted">{{ formatDate2(IncMateria?.createdDate) }}</small></td>
                 </tr>
-                <tr>
-                  <td><strong>Actualizado:</strong></td>
-                  <td><small class="text-muted">{{ formatDate2(Usuario.updatedDate) }}</small></td>
-                </tr>
+               
               </table>
             </div>
           </div>
@@ -107,10 +68,10 @@
         </div>
         <div class="card-body">
           <div class="d-grid gap-2">
-            <a [routerLink]="['/inscripciones/edit', Usuario.id]" class="btn btn-warning">
+            <a [routerLink]="['/inscripciones/edit', IncMateria.id]" class="btn btn-warning">
               <i class="fas fa-edit"></i> Editar inscripcion
             </a>
-            <button type="button" class="btn btn-danger" (click)="onDeleteUsuario()">
+            <button type="button" class="btn btn-danger" (click)="onDeleteIncMateria()">
               <i class="fas fa-trash"></i> Eliminar inscripcion
             </button>
             <a routerLink="/inscripciones" class="btn btn-secondary">
@@ -125,28 +86,21 @@
         <div class="card-header">
           <h6 class="mb-0">Información del Sistema</h6>
         </div>
-        <div class="card-body">
-          <small class="text-muted">
-            <strong>ID de la inscripcion:</strong> {{ Usuario.id }}<br>
-            <strong>Última modificación:</strong><br>
-            {{ formatDate2(Usuario.updatedDate) }}
-          </small>
-        </div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Mensaje si no se encuentra el producto -->
-<div class="container mt-4" *ngIf="!Usuario">
+<div class="container mt-4" *ngIf="!IncMateria">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card text-center">
         <div class="card-body">
           <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
-          <h4>Usuario no encontrado</h4>
-          <p class="text-muted">El Usuario que buscas no existe o ha sido eliminado.</p>
-          <a routerLink="/usuarios" class="btn btn-primary">
+          <h4>IncMateria no encontrado</h4>
+          <p class="text-muted">El IncMateria que buscas no existe o ha sido eliminado.</p>
+          <a routerLink="/incMaterias" class="btn btn-primary">
             <i class="fas fa-arrow-left"></i> Volver a la Lista
           </a>
         </div>

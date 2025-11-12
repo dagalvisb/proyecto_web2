@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class IncmateriasService {
-  private apiUrl = 'https://localhost:7248/api/Usuarios'; // URL base de tu backend
+  private apiUrl = 'https://localhost:7248/api/IncMaterias'; // URL base de tu backend
   private incMateriasSubject = new BehaviorSubject<IncMateria[]>([]);
   public incMaterias$ = this.incMateriasSubject.asObservable();
   private loadingSubject = new BehaviorSubject<boolean>(false);

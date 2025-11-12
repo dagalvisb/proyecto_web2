@@ -33,7 +33,7 @@ export class ApiService {
 
   // GET /api/Materias
   getMaterias(): Observable<Materia[]> {
-    return this.http.get<Materia[]>(`${this.baseUrl}/Usuarios/ListaMateria`, this.httpOptions)
+    return this.http.get<Materia[]>(`${this.baseUrl}/Materias/ListaMateria`, this.httpOptions)
       .pipe(
         map(Materias => Materias.map(Materia => ({
           ...Materia,
@@ -46,7 +46,7 @@ export class ApiService {
 
   // GET /api/IncMaterias
    getIncMaterias(): Observable<IncMateria[]> {
-    return this.http.get<IncMateria[]>(`${this.baseUrl}/Usuarios/ListaIncMaterias`, this.httpOptions)
+    return this.http.get<IncMateria[]>(`${this.baseUrl}/IncMaterias/ListaIncMaterias`, this.httpOptions)
       .pipe(
         map(IncMaterias => IncMaterias.map(IncMateria => ({
           ...IncMateria,
@@ -72,7 +72,7 @@ export class ApiService {
 
   // GET /api/Materias/{id}
   getMateriaById(id: number): Observable<Materia> {
-    return this.http.get<Materia>(`${this.baseUrl}/Usuarios/verMateria?id=${id}`, this.httpOptions)
+    return this.http.get<Materia>(`${this.baseUrl}/Materias/verMateria?id=${id}`, this.httpOptions)
       .pipe(
         map(Materia => ({
           ...Materia,
@@ -85,7 +85,7 @@ export class ApiService {
 
   // GET /api/IncMaterias/{id}
   getIncMateriaById(id: number): Observable<IncMateria> {
-    return this.http.get<IncMateria>(`${this.baseUrl}/Usuarios/verincMaterias?id=${id}`, this.httpOptions)
+    return this.http.get<IncMateria>(`${this.baseUrl}/IncMaterias/verincMaterias?id=${id}`, this.httpOptions)
       .pipe(
         map(Usuario => ({
           ...Usuario,
@@ -127,7 +127,7 @@ export class ApiService {
     };
 
     console.log(MateriaToSend);
-    return this.http.post<Materia>(`${this.baseUrl}/Usuarios/CrearMateria`, MateriaToSend, this.httpOptions)
+    return this.http.post<Materia>(`${this.baseUrl}/Materias/CrearMateria`, MateriaToSend, this.httpOptions)
       .pipe(
         map(Materia => ({
           ...Materia,
@@ -147,7 +147,7 @@ export class ApiService {
     };
 
     console.log(IncMateriaToSend);
-    return this.http.post<IncMateria>(`${this.baseUrl}/Usuarios/CrearincMaterias`, IncMateriaToSend, this.httpOptions)
+    return this.http.post<IncMateria>(`${this.baseUrl}/IncMaterias/CrearincMaterias`, IncMateriaToSend, this.httpOptions)
       .pipe(
         map(IncMateria => ({
           ...IncMateria,
@@ -187,7 +187,7 @@ export class ApiService {
 
     console.log("Variable de Materia", MateriaToSend);
 
-    return this.http.put<Materia>(`${this.baseUrl}/Usuarios/EditarMateria?id=${id}`, MateriaToSend, this.httpOptions)
+    return this.http.put<Materia>(`${this.baseUrl}/Materias/EditarMateria?id=${id}`, MateriaToSend, this.httpOptions)
       .pipe(
         map(Materia => ({
           ...Materia,
@@ -206,7 +206,7 @@ export class ApiService {
 
     console.log("Variable de IncMateria", IncMateriaToSend);
 
-    return this.http.put<IncMateria>(`${this.baseUrl}/Usuarios/EditarIncMaterias?id=${id}`, IncMateriaToSend, this.httpOptions)
+    return this.http.put<IncMateria>(`${this.baseUrl}/IncMaterias/EditarIncMaterias?id=${id}`, IncMateriaToSend, this.httpOptions)
       .pipe(
         map(IncMateria => ({
           ...IncMateria,
@@ -225,7 +225,7 @@ export class ApiService {
   }
 
   deleteMateria(id: number): Observable<boolean> {
-    return this.http.delete(`${this.baseUrl}/Usuarios/EliminarMateria?id=${id}`, this.httpOptions)
+    return this.http.delete(`${this.baseUrl}/Materias/EliminarMateria?id=${id}`, this.httpOptions)
       .pipe(
         map(() => true),
         catchError(this.handleError)
@@ -234,7 +234,7 @@ export class ApiService {
 
   // DELETE /api/IncMaterias/{id}
   deleteIncMateria(id: number): Observable<boolean> {
-    return this.http.delete(`${this.baseUrl}/Usuarios/EliminarIncMaterias?id=${id}`, this.httpOptions)
+    return this.http.delete(`${this.baseUrl}/IncMaterias/EliminarIncMaterias?id=${id}`, this.httpOptions)
       .pipe(
         map(() => true),
         catchError(this.handleError)

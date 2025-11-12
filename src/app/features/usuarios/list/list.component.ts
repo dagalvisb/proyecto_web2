@@ -86,7 +86,7 @@ export class ListComponent implements OnInit, OnDestroy {
     if (confirm('¿Está seguro de que desea eliminar este usuario?')) {
       this.usuarioService.deleteUsuario(id).subscribe({
         next: () => {
-          alert('Usuarioo eliminado exitosamente');
+          alert('Usuario eliminado exitosamente');
         },
         error: (error) => {
           alert(`Error al eliminar el producto: ${error.message}`);
