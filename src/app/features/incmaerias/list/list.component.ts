@@ -14,7 +14,9 @@ import { IncmateriasService } from '../../../services/incmaterias.service';
   styleUrl: './list.component.css',
 })
 export class ListComponent implements OnInit, OnDestroy {
-  materias: string[] = [];  
+  materias: string[] = []; 
+  estudiantes: string[] = [];
+  profesores: string[] = []; 
   incMaterias: IncMateria[] = [];
   filteredIncMaterias: IncMateria[] = [];
   searchQuery: string = '';
@@ -52,6 +54,28 @@ export class ListComponent implements OnInit, OnDestroy {
       })
     );
   } 
+
+  cargarEstudiantes(): void{
+    this.incMateriaService.getEstudiantes().subscribe({
+      next: (data) => {
+        this.estudiantes = data;
+      },
+      error: (err) => {
+        console.error('Error al obtener los estuaintes', err)
+      }
+    });
+  }
+
+  cargarProfesores(): void{
+    this.incMateriaService.getProfesores().subscribe({
+      next: (data) => {
+        this.profesores = data;
+      },
+      error: (err) => {
+        console.error('Error al obtener los profesores', err)
+      }
+    });
+  }
 
   cargarMateriasUnicas(): void {
     this.incMateriaService.getMateriasUnicas().subscribe({

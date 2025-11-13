@@ -66,6 +66,8 @@
               <th>ID</th>
               <th>Usuario</th>
               <th>Materia</th>
+              <th>Profesor</th>
+              <th>Grupo</th>
               <th>Creado</th>
               <th>Acciones</th>
             </tr>
@@ -93,6 +95,8 @@
                     <strong>{{ IncMateria.usuario }}</strong>
                   </td>
                   <td>{{ IncMateria.materia }}</td>
+                  <td>{{ IncMateria.profesor}}</td>
+                  <td>{{ IncMateria.grupo}}</td>
                   <td>
                     <small class="text-muted">{{ formatDate2(IncMateria.createdDate) }}</small>
                   </td>
