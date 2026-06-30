@@ -35,6 +35,12 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/materias/materias.routes').then(m => m.MATERIAS_ROUTES),
   },
+
+  {
+    path: 'cursos',
+    loadChildren: () =>
+      import('./features/cursos/cursos.routes').then(m => m.CURSOS_ROUTES),
+  },
   // Lazy + guard (canMatch)
   {
     path: 'admin',

@@ -1,0 +1,105 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">
+            {{ isEditMode ? 'Editar Curso' : 'Crear Nuevo Curso' }}
+          </h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="cursoForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="nombre" class="form-label">Nombre del Curso *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [class.is-invalid]="isFieldInvalid('nombre')"
+                  id="nombre"
+                  formControlName="nombre"
+                  placeholder="Ej: Matem&aacute;ticas I"
+                />
+                <div class="invalid-feedback" *ngIf="getFieldError('nombre')">
+                  {{ getFieldError('nombre') }}
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="numeroCurso" class="form-label">N&uacute;mero de Curso *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [class.is-invalid]="isFieldInvalid('numeroCurso')"
+                  id="numeroCurso"
+                  formControlName="numeroCurso"
+                  placeholder="Ej: MAT-101"
+                />
+                <div class="invalid-feedback" *ngIf="getFieldError('numeroCurso')">
+                  {{ getFieldError('numeroCurso') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="profesor" class="form-label">Profesor *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [class.is-invalid]="isFieldInvalid('profesor')"
+                  id="profesor"
+                  formControlName="profesor"
+                  placeholder="Ej: Dr. Juan P&eacute;rez"
+                />
+                <div class="invalid-feedback" *ngIf="getFieldError('profesor')">
+                  {{ getFieldError('profesor') }}
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="cantidadEstudiantes" class="form-label">Cantidad de Estudiantes *</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  [class.is-invalid]="isFieldInvalid('cantidadEstudiantes')"
+                  id="cantidadEstudiantes"
+                  formControlName="cantidadEstudiantes"
+                  min="1"
+                  placeholder="Ej: 30"
+                />
+                <div class="invalid-feedback" *ngIf="getFieldError('cantidadEstudiantes')">
+                  {{ getFieldError('cantidadEstudiantes') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripci&oacute;n *</label>
+              <textarea
+                class="form-control"
+                [class.is-invalid]="isFieldInvalid('descripcion')"
+                id="descripcion"
+                formControlName="descripcion"
+                rows="3"
+                placeholder="Ingrese una descripci&oacute;n del curso"
+              ></textarea>
+              <div class="invalid-feedback" *ngIf="getFieldError('descripcion')">
+                {{ getFieldError('descripcion') }}
+              </div>
+            </div>
+
+            <div class="d-flex gap-2 justify-content-end">
+              <button type="button" class="btn btn-secondary" (click)="onCancel()">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="cursoForm.invalid">
+                {{ isEditMode ? 'Actualizar' : 'Crear' }} Curso
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

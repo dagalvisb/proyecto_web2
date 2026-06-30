@@ -1,0 +1,133 @@
+<div class="container mt-4" *ngIf="curso">
+  <div class="row mb-4">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/cursos">Cursos</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {{ curso.nombre }}
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">{{ curso.nombre }}</h3>
+          <div class="btn-group" role="group">
+            <a [routerLink]="['/cursos/edit', curso.id]" class="btn btn-warning btn-sm">
+              <i class="fas fa-edit"></i> Editar
+            </a>
+            <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteCurso()">
+              <i class="fas fa-trash"></i> Eliminar
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h5>Informaci&oacute;n General</h5>
+              <table class="table table-borderless">
+                <tr>
+                  <td><strong>ID:</strong></td>
+                  <td><span class="badge bg-secondary">{{ curso.id }}</span></td>
+                </tr>
+                <tr>
+                  <td><strong>N&uacute;mero de Curso:</strong></td>
+                  <td><span class="badge bg-primary">{{ curso.numeroCurso }}</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Profesor:</strong></td>
+                  <td>{{ curso.profesor }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Estudiantes:</strong></td>
+                  <td>
+                    <span [class]="getEstudiantesClass(curso.cantidadEstudiantes)">
+                      {{ curso.cantidadEstudiantes }} estudiantes
+                    </span>
+                    <small class="ms-2 text-muted">({{ getEstudiantesStatus(curso.cantidadEstudiantes) }})</small>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-md-6">
+              <h5>Fechas</h5>
+              <table class="table table-borderless">
+                <tr>
+                  <td><strong>Creado:</strong></td>
+                  <td><small class="text-muted">{{ formatDate(curso.createdDate) }}</small></td>
+                </tr>
+                <tr>
+                  <td><strong>Actualizado:</strong></td>
+                  <td><small class="text-muted">{{ formatDate(curso.updatedDate) }}</small></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <hr>
+
+          <h5>Descripci&oacute;n</h5>
+          <p class="text-muted">{{ curso.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Acciones</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <a [routerLink]="['/cursos/edit', curso.id]" class="btn btn-warning">
+              <i class="fas fa-edit"></i> Editar Curso
+            </a>
+            <button type="button" class="btn btn-danger" (click)="onDeleteCurso()">
+              <i class="fas fa-trash"></i> Eliminar Curso
+            </button>
+            <a routerLink="/cursos" class="btn btn-secondary">
+              <i class="fas fa-arrow-left"></i> Volver a la Lista
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-header">
+          <h6 class="mb-0">Informaci&oacute;n del Sistema</h6>
+        </div>
+        <div class="card-body">
+          <small class="text-muted">
+            <strong>ID del Curso:</strong> {{ curso.id }}<br>
+            <strong>&Uacute;ltima modificaci&oacute;n:</strong><br>
+            {{ formatDate(curso.updatedDate) }}
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4" *ngIf="!curso">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card text-center">
+        <div class="card-body">
+          <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+          <h4>Curso no encontrado</h4>
+          <p class="text-muted">El curso que buscas no existe o ha sido eliminado.</p>
+          <a routerLink="/cursos" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Volver a la Lista
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
