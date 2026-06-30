@@ -138,6 +138,14 @@ export class IncmateriasService {
     return this.http.get<string[]>(`${this.apiUrl}/Unicas`);
   }
 
+  getEstudiantes(): Observable<string[]>{
+    return this.http.get<string[]>(`${this.apiUrl}/listaUsuariosEstudiantes`)
+  }
+
+  getProfesores(): Observable<string[]>{
+    return this.http.get<string[]>(`${this.apiUrl}/listaUsuariosProfesores`)
+  }
+
   // Recargar incMateriaos desde la API
   refreshIncMaterias(): void {
     this.loadIncMaterias();
