@@ -1,48 +1,223 @@
-.hero-section {
+.hero {
   position: relative;
-  min-height: 400px;
-  background: url('../../shared/assets/3163155.jpg') center center / cover no-repeat;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(13, 71, 161, 0.85), rgba(0, 0, 0, 0.7));
-}
-
-.stat-card {
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-}
-
-.stat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
-}
-
-.stat-icon {
-  width: 64px;
-  height: 64px;
+  min-height: 360px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--clr-primary) 0%, #0F1A30 100%);
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(42, 157, 143, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 50%, rgba(212, 168, 67, 0.08) 0%, transparent 60%);
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  max-width: 680px;
+}
+
+.hero-title {
+  font-family: var(--ff-display);
+  font-weight: 400;
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.hero-btn-primary {
+  background: var(--clr-accent);
+  color: #fff;
+}
+
+.hero-btn-primary:hover {
+  background: #238B7E;
+  color: #fff;
+}
+
+.hero-btn-outline {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-btn-outline:hover {
+  border-color: #fff;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.home-section {
+  padding-top: 2.5rem;
+  padding-bottom: 3rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.stat-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.stat-number {
+  font-size: 2.25rem;
+  font-weight: 700;
+  font-family: var(--ff-mono);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  color: var(--clr-text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.stat-link {
+  font-size: 0.8rem;
+  color: var(--clr-text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.stat-link:hover {
+  color: var(--clr-accent);
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }
 
 .quick-card {
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .quick-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .quick-icon {
-  transition: transform 0.2s ease;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  line-height: 1;
 }
 
-.quick-card:hover .quick-icon {
-  transform: scale(1.1);
+.quick-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--clr-primary);
+}
+
+.quick-card p {
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.quick-btn {
+  display: inline-flex;
+  padding: 0.35rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.quick-btn:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+}
+
+@media (max-width: 992px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .quick-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 1.75rem;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .quick-grid {
+    grid-template-columns: 1fr;
+  }
 }

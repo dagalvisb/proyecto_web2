@@ -1,102 +1,79 @@
-<div class="container-fluid mt-4">
-    <!-- Header con botón de crear -->
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <h2 class="mb-0">Lista de Materias</h2>
-            <p class="text-muted">Muestra las Materias Disponibles</p>
-        </div>
-        <div class="col-md-6 text-end">
-            <a routerLink="/materias/inscribir" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Inscribir Materia
+<div class="page-container">
+  <div class="container-fluid">
+    <div class="section-header">
+      <h2>Materias</h2>
+      <p>Muestra las materias disponibles</p>
+    </div>
+
+    <div class="card-custom mb-4">
+      <div class="card-body">
+        <div class="row align-items-center g-2">
+          <div class="col-md-6">
+            <div class="search-bar d-flex">
+              <input type="text" class="form-control" placeholder="Buscar por nombre o ID..."
+                [(ngModel)]="searchQuery" />
+              <button class="btn" type="button">Buscar</button>
+              <button class="btn" type="button">Limpiar</button>
+            </div>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a routerLink="/materias/inscribir" class="btn-custom-primary btn">
+              Inscribir Materia
             </a>
-        </div>
-    </div>
-
-    <!-- Barra de búsqueda -->
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Buscar Materias por nombre o ID..."
-                    [(ngModel)]="searchQuery" />
-                <button class="btn btn-outline-secondary" type="button">
-                    <i class="fas fa-search"></i> Buscar
-                </button>
-                <button class="btn btn-outline-secondary" type="button">
-                    <i class="fas fa-times"></i> Limpiar
-                </button>
-            </div>
-        </div>
-        <div class="col-md-6 text-end">
-            <span class="badge bg-info">
-                {{ filteredMaterias.length }} Materia(s) encontrada(s)
+            <span class="badge-custom badge-custom-secondary ms-2">
+              {{ filteredMaterias.length }} encontrada(s)
             </span>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!--Tabla de Usuarios-->
-    <div class="card">
-        <div class="card-body p-0">
-            <div class="table-responsive p-0">
-                <table class="table">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Código</th>
-                            <th>Semestre</th>
-                            <th>Materia</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (filteredMaterias.length === 0) {
-                        <tr>
-                            <td colspan="9" class="text-center py-4">
-                                <div class="text-muted">
-                                    <i class="fas fa-box-open fa-3x mb-3"></i>
-                                    <p>No se encontraron Materias</p>
-                                    <a routerLink="/materias/create" class="btn btn-primary btn-sm">
-                                        Crear materia
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        } @else {
-                        @for (Materia of filteredMaterias; track Materia.id) {
-                        <tr>
-                            <td>
-                                <span class="badge bg-secondary">{{ Materia.id }}</span>
-                            </td>
-                            <td>
-                                <strong>{{ Materia.name }}</strong>
-                            </td>
-                            <td>{{ Materia.details }}</td>
-                            <td>{{ Materia.codigo }}</td>
-                            <td>{{ Materia.semestre }}</td>
-                            <td>{{ Materia.materia }}</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <a [routerLink]="['/materias', Materia.id]" class="btn btn-outline-info btn-sm"
-                                        title="Ver detalles">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a [routerLink]="['/materias/edit', Materia.id]"
-                                        class="btn btn-outline-warning btn-sm" title="Editar">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-danger btn-sm"
-                                        (click)="onDeleteMateria(Materia.id)" title="Eliminar">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        }
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="card-custom">
+      <div class="table-responsive">
+        <table class="table-custom table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripci&oacute;n</th>
+              <th>C&oacute;digo</th>
+              <th>Semestre</th>
+              <th>Materia</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (filteredMaterias.length === 0) {
+              <tr>
+                <td colspan="7">
+                  <div class="empty-state">
+                    <p>No se encontraron materias</p>
+                    <a routerLink="/materias/create" class="btn-custom-primary btn btn-sm">Crear materia</a>
+                  </div>
+                </td>
+              </tr>
+            } @else {
+              @for (Materia of filteredMaterias; track Materia.id) {
+                <tr>
+                  <td><span class="badge-custom badge-custom-secondary">{{ Materia.id }}</span></td>
+                  <td><strong>{{ Materia.name }}</strong></td>
+                  <td>{{ Materia.details }}</td>
+                  <td>{{ Materia.codigo }}</td>
+                  <td>{{ Materia.semestre }}</td>
+                  <td><span class="badge-custom badge-custom-primary">{{ Materia.materia }}</span></td>
+                  <td>
+                    <div class="action-group">
+                      <a [routerLink]="['/materias', Materia.id]" class="btn btn-view" title="Ver">&#128065;</a>
+                      <a [routerLink]="['/materias/edit', Materia.id]" class="btn btn-edit" title="Editar">&#9998;</a>
+                      <button type="button" class="btn btn-delete" (click)="onDeleteMateria(Materia.id)" title="Eliminar">&#128465;</button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </div>

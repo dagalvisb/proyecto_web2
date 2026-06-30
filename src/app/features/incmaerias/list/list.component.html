@@ -1,67 +1,52 @@
-<div class="container-fluid mt-4">
-  <!-- Header con botón de crear -->
-  <div class="row mb-4">
-    <div class="col-md-6">
-      <h2 class="mb-0">Gestión de Inscripciones</h2>
-      <p class="text-muted">Administrador de Inscripciones</p>
+<div class="page-container">
+  <div class="container-fluid">
+    <div class="section-header">
+      <h2>Inscripciones</h2>
+      <p>Administra las inscripciones a materias</p>
     </div>
-    <div class="col-md-6 text-end">
-      <a routerLink="/inscripciones/create" class="btn btn-primary">
-        <i class="fas fa-plus"></i> Nueva inscripción
-      </a>
-    </div>
-  </div>
 
-  <!-- Barra de búsqueda -->
-  <div class="row mb-4">
-    <div class="col-md-6">
-      <div class="input-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Buscar Inscripcion por Usuario o Materia..."
-          [(ngModel)]="searchQuery"
-          (keyup.enter)="onSearch()"
-        />
-        <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">
-          <i class="fas fa-search"></i> Buscar
-        </button>
-        <button class="btn btn-outline-secondary" type="button" (click)="onClearSearch()">
-          <i class="fas fa-times"></i> Limpiar
-        </button>
+    <div class="card-custom mb-4">
+      <div class="card-body">
+        <div class="row align-items-center g-2">
+          <div class="col-md-5">
+            <div class="search-bar d-flex">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Buscar por usuario o materia..."
+                [(ngModel)]="searchQuery"
+                (keyup.enter)="onSearch()"
+              />
+              <button class="btn" type="button" (click)="onSearch()">Buscar</button>
+              <button class="btn" type="button" (click)="onClearSearch()">Limpiar</button>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <select
+              class="form-select"
+              [(ngModel)]="searchMateria"
+              (change)="onSearch2()"
+            >
+              <option value="" disabled selected>Seleccione materia</option>
+              <option *ngFor="let materia of materias" [value]="materia">{{ materia }}</option>
+            </select>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <a routerLink="/inscripciones/create" class="btn-custom-primary btn">
+              Nueva Inscripci&oacute;n
+            </a>
+            <span class="badge-custom badge-custom-secondary ms-2">
+              {{ filteredIncMaterias.length }} encontrada(s)
+            </span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-6 text-end">
-      <span class="badge bg-info">
-        {{ filteredIncMaterias.length }} Inscripcion(es) encontrada(s)
-      </span>
-    </div>
-  </div>
 
-   <!-- selector de busqueda -->
-  <div class="row mb-4">
-    <div class="col-md-2">
-      <div class="select-group">
-        <label for="materia" class="form-label visually-hidden">Materias</label>
-        <select
-          id="materia"
-          class="form-select"
-          [(ngModel)]="searchMateria"
-          (change)="onSearch2()"
-          title="Materias">
-          <option value="" disabled selected>Seleccione una materia</option>
-          <option *ngFor="let materia of materias" [value]="materia">{{ materia }}</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <!--Tabla de Inscripciones-->
-  <div class="card">
-    <div class="card-body p-0">
-      <div class="table-responsive p-0">
-        <table class="table">
-          <thead class="table-dark">
+    <div class="card-custom">
+      <div class="table-responsive">
+        <table class="table-custom table">
+          <thead>
             <tr>
               <th>ID</th>
               <th>Usuario</th>
@@ -75,49 +60,27 @@
           <tbody>
             @if (filteredIncMaterias.length === 0) {
               <tr>
-                <td colspan="9" class="text-center py-4">
-                  <div class="text-muted">
-                    <i class="fas fa-box-open fa-3x mb-3"></i>
-                    <p>No se encontraron Inscripciones</p>
-                    <a routerLink="/inscripciones/create" class="btn btn-primary btn-sm">
-                      Crear primer Inscripción
-                    </a>
+                <td colspan="7">
+                  <div class="empty-state">
+                    <p>No se encontraron inscripciones</p>
+                    <a routerLink="/inscripciones/create" class="btn-custom-primary btn btn-sm">Crear primera inscripci&oacute;n</a>
                   </div>
                 </td>
               </tr>
             } @else {
               @for (IncMateria of filteredIncMaterias; track IncMateria.id) {
                 <tr>
-                  <td>
-                    <span class="badge bg-secondary">{{ IncMateria.id }}</span>
-                  </td>
-                  <td>
-                    <strong>{{ IncMateria.usuario }}</strong>
-                  </td>
+                  <td><span class="badge-custom badge-custom-secondary">{{ IncMateria.id }}</span></td>
+                  <td><strong>{{ IncMateria.usuario }}</strong></td>
                   <td>{{ IncMateria.materia }}</td>
-                  <td>{{ IncMateria.profesor}}</td>
-                  <td>{{ IncMateria.grupo}}</td>
+                  <td>{{ IncMateria.profesor }}</td>
+                  <td><span class="badge-custom badge-custom-primary">{{ IncMateria.grupo }}</span></td>
+                  <td><small class="text-muted">{{ formatDate2(IncMateria.createdDate) }}</small></td>
                   <td>
-                    <small class="text-muted">{{ formatDate2(IncMateria.createdDate) }}</small>
-                  </td>
-                  <td>
-                    <div class="btn-group btn-group-sm" role="group">
-                      <a [routerLink]="['/inscripciones', IncMateria.id]" 
-                         class="btn btn-outline-info btn-sm" 
-                         title="Ver detalles">
-                        <i class="fas fa-eye"></i>
-                      </a>
-                      <a [routerLink]="['/inscripciones/edit', IncMateria.id]" 
-                         class="btn btn-outline-warning btn-sm" 
-                         title="Editar">
-                        <i class="fas fa-edit"></i>
-                      </a>
-                      <button type="button" 
-                              class="btn btn-outline-danger btn-sm" 
-                              (click)="onDeleteIncMateria(+IncMateria.id)"
-                              title="Eliminar">
-                        <i class="fas fa-trash"></i>
-                      </button>
+                    <div class="action-group">
+                      <a [routerLink]="['/inscripciones', IncMateria.id]" class="btn btn-view" title="Ver">&#128065;</a>
+                      <a [routerLink]="['/inscripciones/edit', IncMateria.id]" class="btn btn-edit" title="Editar">&#9998;</a>
+                      <button type="button" class="btn btn-delete" (click)="onDeleteIncMateria(+IncMateria.id)" title="Eliminar">&#128465;</button>
                     </div>
                   </td>
                 </tr>

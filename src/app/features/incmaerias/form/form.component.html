@@ -1,58 +1,39 @@
-<div class="container mt-4">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="mb-0">
-            {{ isEditMode ? 'Editar Inscripcion' : 'Crear Nueva inscripcion' }}
-          </h3>
-        </div>
-        <div class="card-body">
-          <form [formGroup]="incMateriaForm" (ngSubmit)="onSubmit()">
-            <div class="row">
-              
-              <!-- usuario -->
-              <div class="mb-3">
-                <label for="usuario" class="form-label">Usuario</label>
-                <select
-                  id="usuario"
-                  class="form-select"
-                  name="usuario"
-                  formControlName="usuario">
-                  <option value="" disabled selected>Seleccione un usuario</option>
-                  <option *ngFor="let u of usuariosIdNombre" [value]="u.nombre">
-                    {{u.id}} {{u.nombre}}
-                  </option>
-                </select>
-              </div>
+<div class="page-container">
+  <div class="container">
+    <div class="section-header">
+      <h2>{{ isEditMode ? 'Editar Inscripci&oacute;n' : 'Nueva Inscripci&oacute;n' }}</h2>
+      <p>{{ isEditMode ? 'Modifica los datos de la inscripci&oacute;n' : 'Registra una nueva inscripci&oacute;n a materia' }}</p>
+    </div>
 
-              <!-- materia -->
-              <div class="mb-3">
-                <label for="materia" class="form-label">Materia</label>
-                <select
-                  id="materia"
-                  class="form-select"
-                  name="materia"
-                  formControlName="materia">
-                  <option value="" disabled selected>Seleccione una materia</option>
-                  <option *ngFor="let m of materiasIdNombre" [value]="m.name + ' Semestre ' + m.semestre">
-                    {{m.id}} {{m.name}} {{m.semestre}}
-                  </option>
-                </select>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card-custom">
+          <div class="card-body p-4">
+            <form [formGroup]="incMateriaForm" (ngSubmit)="onSubmit()" class="form-custom">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="usuario" class="form-label">Usuario</label>
+                  <select id="usuario" class="form-select" name="usuario" formControlName="usuario">
+                    <option value="" disabled selected>Seleccione un usuario</option>
+                    <option *ngFor="let u of usuariosIdNombre" [value]="u.nombre">{{u.id}} {{u.nombre}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="materia" class="form-label">Materia</label>
+                  <select id="materia" class="form-select" name="materia" formControlName="materia">
+                    <option value="" disabled selected>Seleccione una materia</option>
+                    <option *ngFor="let m of materiasIdNombre" [value]="m.name + ' Semestre ' + m.semestre">{{m.id}} {{m.name}} {{m.semestre}}</option>
+                  </select>
+                </div>
               </div>
-
-            </div>
-             
-            <!-- Botones -->
-            <div class="d-flex gap-2 justify-content-end">
-              <button type="button" class="btn btn-secondary" (click)="onCancel()">
-                Cancelar
-              </button>
-              <button type="submit" class="btn btn-primary" [disabled]="incMateriaForm.invalid">
-                {{ isEditMode ? 'Actualizar' : 'Crear' }} Inscripción
-              </button>
-            </div>
-          </form>
+              <div class="d-flex gap-2 justify-content-end mt-3">
+                <button type="button" class="btn btn-custom-outline" (click)="onCancel()">Cancelar</button>
+                <button type="submit" class="btn btn-custom-primary" [disabled]="incMateriaForm.invalid">
+                  {{ isEditMode ? 'Actualizar' : 'Crear' }} Inscripci&oacute;n
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

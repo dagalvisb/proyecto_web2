@@ -1,138 +1,79 @@
-<!-- Hero Banner -->
-<div class="hero-section d-flex align-items-center">
-  <div class="hero-overlay"></div>
-  <div class="container position-relative text-white text-center">
-    <h1 class="display-4 fw-bold">Sistema de Gesti&oacute;n Estudiantil</h1>
-    <p class="lead mt-3">Administra cursos, materias, usuarios e inscripciones de forma eficiente desde un solo lugar.</p>
-    <div class="mt-4">
-      <a routerLink="/cursos" class="btn btn-primary btn-lg me-3">
-        <i class="fas fa-book"></i> Explorar Cursos
-      </a>
-      <a routerLink="/inscripciones" class="btn btn-outline-light btn-lg">
-        <i class="fas fa-pen"></i> Inscripciones
-      </a>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1 class="hero-title">Sistema de Gesti&oacute;n Estudiantil</h1>
+    <p class="hero-subtitle">Administra cursos, materias, usuarios e inscripciones desde un solo lugar.</p>
+    <div class="hero-actions">
+      <a routerLink="/cursos" class="hero-btn hero-btn-primary">Explorar Cursos</a>
+      <a routerLink="/inscripciones" class="hero-btn hero-btn-outline">Ir a Inscripciones</a>
     </div>
   </div>
 </div>
 
-<!-- Stats Cards -->
-<div class="container mt-4">
-  <div class="row g-4">
-    <div class="col-md-3 col-sm-6">
-      <div class="card stat-card shadow-sm border-0 h-100">
-        <div class="card-body text-center">
-          <div class="stat-icon bg-primary bg-opacity-10 rounded-circle mx-auto mb-3">
-            <i class="fas fa-book text-primary fa-2x"></i>
-          </div>
-          <h3 class="fw-bold text-primary mb-1">{{ totalCursos }}</h3>
-          <p class="text-muted mb-0">Cursos</p>
-          <a routerLink="/cursos" class="stretched-link"></a>
-        </div>
+<div class="home-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number" style="color: var(--clr-accent);">{{ totalCursos }}</div>
+        <div class="stat-label">Cursos</div>
+        <a routerLink="/cursos" class="stat-link">Ver cursos &rarr;</a>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color: var(--clr-info);">{{ totalMaterias }}</div>
+        <div class="stat-label">Materias</div>
+        <a routerLink="/materias" class="stat-link">Ver materias &rarr;</a>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color: var(--clr-accent-warm);">{{ totalUsuarios }}</div>
+        <div class="stat-label">Usuarios</div>
+        <a routerLink="/usuarios" class="stat-link">Ver usuarios &rarr;</a>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="color: var(--clr-success);">{{ totalIncripciones }}</div>
+        <div class="stat-label">Inscripciones</div>
+        <a routerLink="/inscripciones" class="stat-link">Ver inscripciones &rarr;</a>
       </div>
     </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="card stat-card shadow-sm border-0 h-100">
-        <div class="card-body text-center">
-          <div class="stat-icon bg-success bg-opacity-10 rounded-circle mx-auto mb-3">
-            <i class="fas fa-list text-success fa-2x"></i>
-          </div>
-          <h3 class="fw-bold text-success mb-1">{{ totalMaterias }}</h3>
-          <p class="text-muted mb-0">Materias</p>
-          <a routerLink="/materias" class="stretched-link"></a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="card stat-card shadow-sm border-0 h-100">
-        <div class="card-body text-center">
-          <div class="stat-icon bg-info bg-opacity-10 rounded-circle mx-auto mb-3">
-            <i class="fas fa-users text-info fa-2x"></i>
-          </div>
-          <h3 class="fw-bold text-info mb-1">{{ totalUsuarios }}</h3>
-          <p class="text-muted mb-0">Usuarios</p>
-          <a routerLink="/usuarios" class="stretched-link"></a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="card stat-card shadow-sm border-0 h-100">
-        <div class="card-body text-center">
-          <div class="stat-icon bg-warning bg-opacity-10 rounded-circle mx-auto mb-3">
-            <i class="fas fa-check-circle text-warning fa-2x"></i>
-          </div>
-          <h3 class="fw-bold text-warning mb-1">{{ totalIncripciones }}</h3>
-          <p class="text-muted mb-0">Inscripciones</p>
-          <a routerLink="/inscripciones" class="stretched-link"></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Quick Access Cards -->
-<div class="container mt-5">
-  <h3 class="fw-bold mb-4 text-center">Acceso R&aacute;pido</h3>
-  <div class="row g-4">
-    <div class="col-md-3 col-sm-6">
-      <div class="card quick-card shadow-sm border-0 h-100">
-        <div class="card-body text-center p-4">
-          <div class="quick-icon mb-3">
-            <i class="fas fa-book-open text-primary fa-3x"></i>
-          </div>
-          <h5 class="fw-bold">Gestionar Cursos</h5>
-          <p class="text-muted small">Administra el cat&aacute;logo de cursos disponibles.</p>
-          <a routerLink="/cursos" class="btn btn-primary btn-sm">Ir a Cursos</a>
-        </div>
-      </div>
+    <div class="section-header">
+      <h2>Acceso R&aacute;pido</h2>
+      <p>M&oacute;dulos del sistema</p>
     </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="card quick-card shadow-sm border-0 h-100">
-        <div class="card-body text-center p-4">
-          <div class="quick-icon mb-3">
-            <i class="fas fa-layer-group text-success fa-3x"></i>
-          </div>
-          <h5 class="fw-bold">Gestionar Materias</h5>
-          <p class="text-muted small">Organiza las materias del plan de estudios.</p>
-          <a routerLink="/materias" class="btn btn-success btn-sm">Ir a Materias</a>
-        </div>
+
+    <div class="quick-grid">
+      <div class="quick-card">
+        <div class="quick-icon" style="background: rgba(42, 157, 143, 0.1); color: var(--clr-accent);">&#128218;</div>
+        <h3>Cursos</h3>
+        <p>Administra el cat&aacute;logo de cursos disponibles.</p>
+        <a routerLink="/cursos" class="quick-btn">Ir a Cursos</a>
       </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="card quick-card shadow-sm border-0 h-100">
-        <div class="card-body text-center p-4">
-          <div class="quick-icon mb-3">
-            <i class="fas fa-user-graduate text-info fa-3x"></i>
-          </div>
-          <h5 class="fw-bold">Gestionar Usuarios</h5>
-          <p class="text-muted small">Registra y administra estudiantes y docentes.</p>
-          <a routerLink="/usuarios" class="btn btn-info btn-sm text-white">Ir a Usuarios</a>
-        </div>
+      <div class="quick-card">
+        <div class="quick-icon" style="background: rgba(74, 139, 217, 0.1); color: var(--clr-info);">&#128203;</div>
+        <h3>Materias</h3>
+        <p>Organiza las materias del plan de estudios.</p>
+        <a routerLink="/materias" class="quick-btn">Ir a Materias</a>
       </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="card quick-card shadow-sm border-0 h-100">
-        <div class="card-body text-center p-4">
-          <div class="quick-icon mb-3">
-            <i class="fas fa-pen-square text-warning fa-3x"></i>
-          </div>
-          <h5 class="fw-bold">Inscripciones</h5>
-          <p class="text-muted small">Gestiona las inscripciones a materias.</p>
-          <a routerLink="/inscripciones" class="btn btn-warning btn-sm text-white">Ir a Inscripciones</a>
-        </div>
+      <div class="quick-card">
+        <div class="quick-icon" style="background: rgba(212, 168, 67, 0.1); color: var(--clr-accent-warm);">&#128101;</div>
+        <h3>Usuarios</h3>
+        <p>Registra y administra estudiantes y docentes.</p>
+        <a routerLink="/usuarios" class="quick-btn">Ir a Usuarios</a>
+      </div>
+      <div class="quick-card">
+        <div class="quick-icon" style="background: rgba(58, 157, 110, 0.1); color: var(--clr-success);">&#9999;</div>
+        <h3>Inscripciones</h3>
+        <p>Gestiona las inscripciones a materias.</p>
+        <a routerLink="/inscripciones" class="quick-btn">Ir a Inscripciones</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Footer Info -->
-<div class="container mt-5 mb-4">
-  <div class="card border-0 bg-light">
-    <div class="card-body text-center p-4">
-      <h5 class="fw-bold">Bienvenido al Sistema de Gesti&oacute;n Estudiantil</h5>
-      <p class="text-muted mb-0">
-        Utiliza los accesos directos para navegar entre los diferentes m&oacute;dulos.
-        <a routerLink="/admin" class="text-decoration-none">Panel de Administraci&oacute;n</a>
-      </p>
-    </div>
+<div class="page-footer">
+  <div class="container text-center">
+    <p class="text-muted mb-0" style="font-size: 0.85rem;">
+      Sistema de Gesti&oacute;n Estudiantil &mdash;
+      <a routerLink="/admin" style="color: var(--clr-text-muted);">Panel de Administraci&oacute;n</a>
+    </p>
   </div>
 </div>

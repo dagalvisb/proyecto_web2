@@ -1,18 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IncmateriasService } from '../../../services/incmaterias.service';
 import { UsuarioService } from '../../../services/usuario.service';
 
 import { MateriaService } from '../../../services/materia.service';
-import { HttpClientModule } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
   
